@@ -1,5 +1,6 @@
 package com.example.spook_inc
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -40,15 +41,34 @@ class MainActivity : AppCompatActivity() {
                 imgForeground.alpha = 0.8f;
                 lightOff = true;
             }
-
-
         }
 
+        btnGhost.setOnClickListener(){
+            catchGhosts();
+        }
 
+        btnTraining.setOnClickListener(){
+            training();
+        }
+
+        btnSpook.setOnClickListener(){
+            spook();
+        }
 
     }
     fun catchGhosts(){
+        val intent = Intent(this, CatchGhostActivity::class.java);
+        startActivity(intent);
+    }
 
+    fun training(){
+        val intent = Intent(this, TrainingActivity::class.java);
+        startActivity(intent);
+    }
+
+    fun spook(){
+        val intent = Intent(this, SpookActivity::class.java);
+        startActivity(intent);
     }
 
 }
