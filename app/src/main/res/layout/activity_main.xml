@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:name=".SomeActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:name=".SomeActivity"
+    android:foregroundTint="#A3FFFFFF"
     android:label="@string/app_name"
-    android:screenOrientation="portrait">
+    android:screenOrientation="portrait"
+    tools:context=".MainActivity">
 
 
     <ImageView
@@ -15,27 +16,18 @@
         android:layout_width="626dp"
         android:layout_height="951dp"
         android:layout_marginTop="-100dp"
+        android:adjustViewBounds="false"
+        android:background="#B82727"
+        android:backgroundTint="@color/purple_200"
+        android:foregroundTint="#BF3232"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.458"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/background" />
-
-    <TextView
-        android:id="@+id/txtTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="Spook Inc."
-        android:textColor="#FFFFFF"
-        android:textSize="48sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnTraining"
@@ -43,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="204dp"
         android:text="Training"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imgBtnCatchGhostsOff"
         app:layout_constraintHorizontal_bias="0.0"
@@ -54,22 +47,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="204dp"
         android:text="Spook"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgBtnCatchGhostsOff" />
-
-    <ImageButton
-        android:id="@+id/imgBtnCatchGhostsOff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="112dp"
-        android:backgroundTint="#00FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/flashlight_off"
-        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/imgBtnGhost"
@@ -85,5 +66,46 @@
         app:layout_constraintVertical_bias="0.472"
         app:srcCompat="@drawable/ghost"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Spook Inc."
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imgBtnCatchGhostsOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.871"
+        app:srcCompat="@drawable/flashlight_off"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/imgForeground"
+        android:layout_width="480dp"
+        android:layout_height="834dp"
+        android:alpha="0.8"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7"
+        app:srcCompat="@drawable/spook_foreground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
