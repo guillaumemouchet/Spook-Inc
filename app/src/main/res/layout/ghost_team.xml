@@ -22,6 +22,7 @@
         android:layout_height="347dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spookRatingText"
         app:layout_constraintVertical_bias="1.0">
@@ -65,8 +66,8 @@
 
     <ScrollView
         android:id="@+id/ghostTeamView"
-        android:layout_width="409dp"
-        android:layout_height="204dp"
+        android:layout_width="412dp"
+        android:layout_height="107dp"
         app:layout_constraintBottom_toTopOf="@+id/spookRatingText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,5 +78,29 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
+
+    <Button
+        android:id="@+id/btnRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/ghostBoxView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/boxText" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="true"
+        android:text="Add"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/ghostBoxView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/boxText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
