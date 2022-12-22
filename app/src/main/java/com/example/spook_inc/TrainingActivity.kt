@@ -15,6 +15,7 @@ class TrainingActivity : AppCompatActivity() {
 
         btnGhost.setOnClickListener(){
             Toast.makeText(this,"Hello charlie",Toast.LENGTH_SHORT).show()
+            println("Coucou")
         }
     }
 
@@ -26,4 +27,9 @@ class Ghost()
     // val name
     //val strength
     //val img
+
+    fun main()
+    {
+
+    }
 }
