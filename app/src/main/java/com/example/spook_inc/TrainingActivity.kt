@@ -20,7 +20,10 @@ class TrainingActivity : AppCompatActivity() {
 
 }
 
-class Ghost(name: String)
+class Ghost()
 {
-    val name = name
+    //val id
+    // val name
+    //val strength
+    //val img
 }
