@@ -28,7 +28,7 @@ class CatchGhostActivity : AppCompatActivity() {
         val level = batteryStatus!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
         val scale = batteryStatus!!.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
         val batteryPct = level / scale.toFloat() * 100;
-
+        //batteryPct = 50;
 
         //change the size of image from the battery  * batteryPct/100
         val size = (800 * batteryPct/100).toInt()
@@ -50,6 +50,9 @@ class CatchGhostActivity : AppCompatActivity() {
             // about the event by the user
             val x = event.rawX.toInt()
             val y = event.rawY.toInt()
+            val testPointer = event.pointerCount.toInt()
+            val total = (testPointer < 1);
+
             // detecting user actions on moving
             when (event.action and MotionEvent.ACTION_MASK) {
                 MotionEvent.ACTION_DOWN -> {
@@ -64,8 +67,8 @@ class CatchGhostActivity : AppCompatActivity() {
                     val layoutParams = view.layoutParams as RelativeLayout.LayoutParams
                     layoutParams.leftMargin = x - xDelta
                     layoutParams.topMargin = y - yDelta
-                    //layoutParams.rightMargin = 0
-                    //layoutParams.bottomMargin = 0
+                    layoutParams.rightMargin = x + 10*xDelta
+                    layoutParams.bottomMargin = y + 10*yDelta
                     view.layoutParams = layoutParams
                 }
             }
