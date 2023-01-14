@@ -235,10 +235,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="412dp"
-                android:layout_height="107dp"
-                android:text="test"/>
+                android:layout_height="105dp"
+                android:text="test" />
+
         </LinearLayout>
     </ScrollView>
 
