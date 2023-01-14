@@ -16,8 +16,6 @@ class TrainingActivity : AppCompatActivity() {
         val ghost = Ghost(1,"Charlie",10);
 
         btnGhost.setOnClickListener(){
-            //Toast.makeText(this,"Hello Charlie",Toast.LENGTH_SHORT).show()
-            //println("Coucou")
             ghost.main()
         }
 
@@ -36,5 +34,10 @@ class Ghost(val id: Int, val name: String, val strength: Int)
     fun main()
     {
         Log.i("Ghost", name)
+    }
+
+    fun display()
+    {
+
     }
 }
