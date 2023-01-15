@@ -1,5 +1,7 @@
 package com.example.spook_inc
 
+import android.app.ActivityManager
+import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -12,17 +14,15 @@ import androidx.core.view.isVisible
 
 class MainActivity : AppCompatActivity() {
     private val activePlayers: Set<MediaPlayer> = HashSet()
-    private  val COUNTER_KEY = "counter"
+    private val COUNTER_KEY = "counter"
     private var counter = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         val btnGhost = findViewById<ImageButton>(R.id.imgBtnGhost)
 
         val flashLightOff = findViewById<ImageButton>(R.id.imgBtnCatchGhostsOff)
-        //val flashLightOn = findViewById<ImageButton>(R.id.imgBtnCatchGhostsOff)
 
         val btnTraining = findViewById<Button>(R.id.btnTraining)
         val btnSpook = findViewById<Button>(R.id.btnSpook)
@@ -31,13 +31,13 @@ class MainActivity : AppCompatActivity() {
 
         var lightOff = true
 
-        flashLightOff.setOnClickListener(){
-            var lightclick = MediaPlayer.create(this,R.raw.flashlight);
+        flashLightOff.setOnClickListener() {
+            var lightclick = MediaPlayer.create(this, R.raw.flashlight);
             lightclick.setVolume(1f, 1f)
             lightclick.start();
 
 
-            if(lightOff){
+            if (lightOff) {
 
                 flashLightOff.setImageResource(R.drawable.flashlight_on);
                 btnGhost.isVisible = true;
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 imgForeground.alpha = 0.0f;
                 lightOff = false;
 
-            }else{
+            } else {
 
                 flashLightOff.setImageResource(R.drawable.flashlight_off);
                 btnGhost.isVisible = false;
@@ -57,45 +57,46 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        btnGhost.setOnClickListener(){
+        btnGhost.setOnClickListener() {
             catchGhosts();
         }
 
-        btnTraining.setOnClickListener(){
+        btnTraining.setOnClickListener() {
             training();
         }
 
-        btnSpook.setOnClickListener(){
+        btnSpook.setOnClickListener() {
             spook();
         }
 
     }
-    private fun catchGhosts(){
+
+    private fun catchGhosts() {
         val intent = Intent(this, CatchGhostActivity::class.java);
         startActivity(intent);
 
     }
 
-    private fun training(){
+    private fun training() {
         val intent = Intent(this, TrainingActivity::class.java);
         startActivity(intent);
 
     }
 
 
-    private fun spook(){
+    private fun spook() {
         val intent = Intent(this, SpookActivity::class.java);
         startActivity(intent);
 
     }
 
 
-    //Cicle de vie d'une application
+    //Cycle de vie d'une application
 
     override fun onStart() {
-    //Start sound of BG
+        //Start sound of BG
+
         startService(Intent(this, BackgroundSoundService::class.java))
-        // "super" after (continues flow)
         super.onStart()
     }
 
@@ -119,8 +120,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-
-        // "super" after (continues flow)
+        startService(Intent(this, BackgroundSoundService::class.java))
         super.onPause()
     }
 
@@ -134,7 +134,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         // "super" after (continues flow)
-        startService(Intent(this, BackgroundSoundService::class.java))
 
         super.onStop()
     }
@@ -145,7 +144,4 @@ class MainActivity : AppCompatActivity() {
         // "super" after (continues flow)
         super.onDestroy()
     }
-
-
-
 }

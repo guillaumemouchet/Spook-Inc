@@ -17,6 +17,8 @@ class CatchGhostActivity : AppCompatActivity() {
     // default position of image
     private var xDelta = 0
     private var yDelta = 0
+    private val COUNTER_KEY = "counter"
+    private var counter = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catch_ghost)
@@ -28,7 +30,6 @@ class CatchGhostActivity : AppCompatActivity() {
         val level = batteryStatus!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
         val scale = batteryStatus!!.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
         val batteryPct = level / scale.toFloat() * 100;
-        //batteryPct = 50;
 
         //change the size of image from the battery  * batteryPct/100
         val size = (800 * batteryPct/100).toInt()
@@ -38,7 +39,6 @@ class CatchGhostActivity : AppCompatActivity() {
         // returns True if the listener has
         // consumed the event, otherwise False.
         image.setOnTouchListener(onTouchListener())
-
 
     }
 
@@ -76,5 +76,61 @@ class CatchGhostActivity : AppCompatActivity() {
             mainLayout.invalidate()
             true
         }
+    }
+    //Cycle de vie d'une application
+
+    override fun onStart() {
+        //Start sound of BG
+        // "super" after (continues flow)
+
+        startService(Intent(this, BackgroundSoundService::class.java))
+
+        super.onStart()
+    }
+
+    override fun onRestart() {
+        // "super" after (continues flow)
+
+        super.onRestart()
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        // "super" before (populates our Bundle object)
+        super.onRestoreInstanceState(savedInstanceState)
+
+        // Here, the Bundle object is never null
+        counter = savedInstanceState.getInt(COUNTER_KEY, 0)
+    }
+
+    override fun onResume() {
+        // "super" after (continues flow)
+        super.onResume()
+    }
+
+    override fun onPause() {
+        startService(Intent(this, BackgroundSoundService::class.java))
+
+        super.onPause()
+    }
+
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        ++counter
+        savedInstanceState.putInt(COUNTER_KEY, counter)
+
+        // "super" after (saves our Bundle object, continues flow)
+        super.onSaveInstanceState(savedInstanceState)
+    }
+
+    override fun onStop() {
+        // "super" after (continues flow)
+
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        //stopService(Intent(this, BackgroundSoundService::class.java))
+
+        // "super" after (continues flow)
+        super.onDestroy()
     }
 }
