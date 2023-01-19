@@ -1,5 +1,7 @@
 package com.example.spook_inc
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
@@ -29,9 +31,17 @@ class MainActivity : AppCompatActivity() {
 
         var imgForeground = findViewById<ImageView>(R.id.imgForeground)
 
+        val ghostAnimator = ObjectAnimator.ofFloat(btnGhost, "scaleY", 1f, 1.1f, 1f)
+        ghostAnimator.duration = 800
+        ghostAnimator.repeatCount = ValueAnimator.INFINITE
+        ghostAnimator.repeatMode = ObjectAnimator.REVERSE
+
+        ghostAnimator.start()
+
         var lightOff = true
 
         flashLightOff.setOnClickListener() {
+
             var lightclick = MediaPlayer.create(this, R.raw.flashlight);
             lightclick.setVolume(1f, 1f)
             lightclick.start();
@@ -55,6 +65,7 @@ class MainActivity : AppCompatActivity() {
                 imgForeground.alpha = 0.8f;
                 lightOff = true;
             }
+
         }
 
         btnGhost.setOnClickListener() {
