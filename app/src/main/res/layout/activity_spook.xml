@@ -10,24 +10,52 @@
         android:id="@+id/imageView"
         android:layout_width="831dp"
         android:layout_height="1112dp"
+        android:contentDescription="Night City Background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.545"
+        app:layout_constraintVertical_bias="0.543"
         app:srcCompat="@drawable/night_city" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
+    <com.example.spook_inc.HouseButton
+        android:id="@+id/house_difficulty_1"
         android:layout_width="117dp"
         android:layout_height="115dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="60dp"
-        android:background="#00FFFFFF"
-        android:scaleType="fitCenter"
-        android:src="@drawable/pngtreesingle_cartoon_house_5714612"
+        android:background ="?attr/selectableItemBackground"
+        app:difficulty="1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.244"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.821" />
+
+    <com.example.spook_inc.HouseButton
+        android:id="@+id/house_difficulty_2"
+        android:layout_width="117dp"
+        android:layout_height="115dp"
+        android:elevation="4dp"
+        app:difficulty="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.734"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.482" />
+
+    <com.example.spook_inc.HouseButton
+        android:id="@+id/house_difficulty_3"
+        android:layout_width="117dp"
+        android:layout_height="115dp"
+        android:elevation="10dp"
+        app:difficulty="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.244"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.105" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
