@@ -23,6 +23,7 @@
         android:id="@+id/house_difficulty_1"
         android:layout_width="117dp"
         android:layout_height="115dp"
+        android:contentDescription="House Button"
         app:difficulty="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,6 +36,7 @@
         android:id="@+id/house_difficulty_2"
         android:layout_width="117dp"
         android:layout_height="115dp"
+        android:contentDescription="House Button"
         app:difficulty="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +49,7 @@
         android:id="@+id/house_difficulty_3"
         android:layout_width="117dp"
         android:layout_height="115dp"
+        android:contentDescription="House Button"
         app:difficulty="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,5 +57,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.105" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
