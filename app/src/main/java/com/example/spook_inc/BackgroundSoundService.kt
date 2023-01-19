@@ -17,7 +17,7 @@ class BackgroundSoundService : Service() {
     override fun onCreate() {
         mediaPlayer = MediaPlayer.create(this, R.raw.background)
         mediaPlayer?.isLooping = true // Set looping
-        mediaPlayer?.setVolume(0.1f, 0.1f)
+        mediaPlayer?.setVolume(0.06f, 0.06f)
         mediaPlayer?.start()
         Toast.makeText(
             applicationContext,
