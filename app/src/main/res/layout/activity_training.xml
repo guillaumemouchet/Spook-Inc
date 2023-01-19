@@ -85,13 +85,13 @@
                         android:id="@+id/txtVName2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Name : " />
+                        android:text="Name :  Unclickable" />
 
                     <TextView
                         android:id="@+id/txtVStrength2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Strength : " />
+                        android:text="Strength : Unclickable" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -116,13 +116,13 @@
                         android:id="@+id/txtVName3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Name : " />
+                        android:text="Name : Unclickable" />
 
                     <TextView
                         android:id="@+id/txtVStrength3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Strength : " />
+                        android:text="Strength : Unclickable" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -147,13 +147,13 @@
                         android:id="@+id/txtVName4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Name : " />
+                        android:text="Name : Unclickable" />
 
                     <TextView
                         android:id="@+id/txtVStrength4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Strength : " />
+                        android:text="Strength : Unclickable" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -178,13 +178,13 @@
                         android:id="@+id/txtVName5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Name : " />
+                        android:text="Name : Unclickable" />
 
                     <TextView
                         android:id="@+id/txtVStrength5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Strength : " />
+                        android:text="Strength : Unclickable" />
                 </LinearLayout>
             </LinearLayout>
 
