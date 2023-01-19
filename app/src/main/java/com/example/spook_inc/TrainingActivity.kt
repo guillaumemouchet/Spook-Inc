@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 
 import android.widget.Toast
 
@@ -20,8 +21,13 @@ class TrainingActivity : AppCompatActivity() {
 
         val btnAddTeam = findViewById<Button>(R.id.btnAdd)
         val btnGhost = findViewById<ImageButton>(R.id.image6)
+        val txtName = findViewById<TextView>(R.id.txtVName)
+        val txtStrength = findViewById<TextView>(R.id.txtVStrength)
 
         val ghost =  Ghost(1,"Charlie", 10)
+
+        txtName.text = "Name: ${ghost.name}"
+        txtStrength.text = "Strength: ${ghost.strength}"
 
         btnGhost.setOnClickListener(){
             btnAddTeam.visibility = View.VISIBLE
