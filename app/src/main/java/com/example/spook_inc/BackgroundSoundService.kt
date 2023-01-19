@@ -21,7 +21,7 @@ class BackgroundSoundService : Service() {
         mediaPlayer?.start()
         Toast.makeText(
             applicationContext,
-            "New mediaplayer",
+            "Start of music",
             Toast.LENGTH_SHORT
         ).show()
 
@@ -35,27 +35,22 @@ class BackgroundSoundService : Service() {
                 first = false;
             }else {
                 mediaPlayer?.pause()
+                Toast.makeText(
+                    applicationContext,
+                    "Pause music",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         }else {
             mediaPlayer?.start() //supposed to resume
             Toast.makeText(
                 applicationContext,
-                "Playing Spooky scary skeleton in the Background",
+                "Resume Spooky scary skeleton in the Background",
                 Toast.LENGTH_SHORT
             ).show()
         }
-        return START_STICKY
-    }
-
-    private fun onPause()
-    {
-        mediaPlayer?.pause()
-        Toast.makeText(
-            applicationContext,
-            "Pause",
-            Toast.LENGTH_SHORT
-        ).show()
+        return START_NOT_STICKY
     }
 
     override fun onDestroy() {
