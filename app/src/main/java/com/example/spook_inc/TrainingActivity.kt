@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.ImageButton
 
 import android.widget.Toast
-import androidx.core.view.isInvisible
 
 class TrainingActivity : AppCompatActivity() {
     private val COUNTER_KEY = "counter"
@@ -92,22 +91,4 @@ class TrainingActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-}
-
-class Ghost(val id: Int, val name: String, val strength: Int)
-{
-    //val id: Int,
-    //val name: String,
-    //val strength: Int,
-    //val img
-
-    fun main()
-    {
-        Log.i("Ghost", name)
-    }
-
-    fun display()
-    {
-
-    }
 }
