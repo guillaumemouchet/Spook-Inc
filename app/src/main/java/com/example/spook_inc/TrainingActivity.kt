@@ -1,5 +1,6 @@
 package com.example.spook_inc
 
+import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
@@ -12,38 +13,81 @@ import android.widget.TextView
 
 import android.widget.Toast
 
+import android.widget.*
+
+
 class TrainingActivity : AppCompatActivity() {
     private val COUNTER_KEY = "counter"
     private var counter = 0
+    var btnAddTeam: Button? = null
+    var btnGhost : ImageButton? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_training)
 
-        val btnAddTeam = findViewById<Button>(R.id.btnAdd)
-        val btnGhost = findViewById<ImageButton>(R.id.image6)
-        val txtName = findViewById<TextView>(R.id.txtVName)
-        val txtStrength = findViewById<TextView>(R.id.txtVStrength)
+
+        btnAddTeam = findViewById<Button>(R.id.btnAdd)
+
 
         val ghost =  Ghost(1,"Charlie", 10)
+        val ghost2 =  Ghost(2,"Damien", 100)
 
-        txtName.text = "Name: ${ghost.name}"
-        txtStrength.text = "Strength: ${ghost.strength}"
+        displayGhost(ghost, this)
+        displayGhost(ghost2, this)
 
-        btnGhost.setOnClickListener(){
-            btnAddTeam.visibility = View.VISIBLE
+
+        btnAddTeam?.setOnClickListener(){
+            createActionListenerTeam(ghost)
+        }
+
+    }
+
+    private fun displayGhost(ghost : Ghost, context:Context)
+    {
+        Toast.makeText(context, "YOLO: ${ghost.name}", Toast.LENGTH_SHORT).show()
+
+        val ghostLayout = findViewById<LinearLayout>(R.id.ghostLayout)
+        val layoutHorizontal = LinearLayout(context)
+        val layoutVertical = LinearLayout(context)
+
+        layoutVertical.orientation = LinearLayout.VERTICAL
+        layoutHorizontal.orientation = LinearLayout.HORIZONTAL
+
+        val btnAddTeam = findViewById<Button>(R.id.btnAdd)
+
+        val imgBtn = ImageButton(context)
+        imgBtn.setImageResource(R.drawable.ghost)
+
+        imgBtn?.setOnClickListener(){
+            btnAddTeam?.visibility = LinearLayout.VISIBLE
             ghost.main()
-            btnAddTeam.text = "Add ${ghost.name}"
-            var ghostnoise = MediaPlayer.create(this, R.raw.ghost)
+            btnAddTeam?.text = "Add ${ghost.name}"
+
+            var ghostnoise = MediaPlayer.create(context, R.raw.ghost)
             ghostnoise.setVolume(1f, 1f)
             ghostnoise.start()
         }
 
-        btnAddTeam.setOnClickListener(){
-            Toast.makeText(this, "AddTeam: ${ghost.name}", Toast.LENGTH_SHORT).show()
 
-        }
+        val name = TextView(context)
+        name.text = "Name: ${ghost.name}"
+        layoutVertical.addView(name)
+
+        val strength = TextView(context)
+        strength.text = "Strength: ${ghost.strength}"
+        layoutVertical.addView(strength)
+
+        layoutHorizontal.addView(imgBtn)
+        layoutHorizontal.addView(layoutVertical)
+
+        ghostLayout.addView(layoutHorizontal)
+    }
+    private fun createActionListenerTeam(ghost : Ghost)
+    {
+        Toast.makeText(this, "AddTeam: ${ghost.name}", Toast.LENGTH_SHORT).show()
 
     }
+
     //Cycle de vie d'une application
 
     override fun onStart() {
