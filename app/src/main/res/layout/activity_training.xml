@@ -81,6 +81,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/playerTeamText"
                 android:layout_width="412dp"
                 android:layout_height="105dp"
                 android:text="test" />
