@@ -21,30 +21,34 @@ class TrainingActivity : AppCompatActivity() {
     private var counter = 0
     var btnAddTeam: Button? = null
     var btnGhost : ImageButton? = null
+    private var currentGhost : Ghost? = null
+    var playerTeamText: TextView? = null
+
+    private var playerTeam: List<Ghost> = mutableListOf()
+
+    var playerGhosts: List<Ghost> = mutableListOf(Ghost(1,"Charlie", 10),Ghost(2,"Damien", 100))
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_training)
 
-
         btnAddTeam = findViewById<Button>(R.id.btnAdd)
+        playerTeamText = findViewById<TextView>(R.id.playerTeamText)
 
-
-        val ghost =  Ghost(1,"Charlie", 10)
-        val ghost2 =  Ghost(2,"Damien", 100)
-
-        displayGhost(ghost, this)
-        displayGhost(ghost2, this)
+        playerGhosts = playerGhosts.plus(Ghost(3,"Valentin", 30))
+        for (ghost in playerGhosts!!)
+        {
+            displayGhost(ghost, this)
+        }
 
 
         btnAddTeam?.setOnClickListener(){
-            createActionListenerTeam(ghost)
+            createActionListenerTeam()
         }
 
     }
 
     private fun displayGhost(ghost : Ghost, context:Context)
     {
-        Toast.makeText(context, "YOLO: ${ghost.name}", Toast.LENGTH_SHORT).show()
 
         val ghostLayout = findViewById<LinearLayout>(R.id.ghostLayout)
         val layoutHorizontal = LinearLayout(context)
@@ -62,6 +66,8 @@ class TrainingActivity : AppCompatActivity() {
             btnAddTeam?.visibility = LinearLayout.VISIBLE
             ghost.main()
             btnAddTeam?.text = "Add ${ghost.name}"
+            currentGhost = ghost
+
 
             var ghostnoise = MediaPlayer.create(context, R.raw.ghost)
             ghostnoise.setVolume(1f, 1f)
@@ -82,9 +88,31 @@ class TrainingActivity : AppCompatActivity() {
 
         ghostLayout.addView(layoutHorizontal)
     }
-    private fun createActionListenerTeam(ghost : Ghost)
+    private fun createActionListenerTeam()
     {
-        Toast.makeText(this, "AddTeam: ${ghost.name}", Toast.LENGTH_SHORT).show()
+        val totalText = findViewById<TextView>(R.id.spookRatingValueText)
+
+
+        if(playerTeam.contains(currentGhost))
+        {
+            Toast.makeText(this, "${ currentGhost?.name} Already in your Team", Toast.LENGTH_SHORT).show()
+        }else
+        {
+            playerTeam = playerTeam.plus(currentGhost!!)
+
+        }
+
+        playerTeamText?.text = ""
+        var text : String = ""
+        var total : Int = 0
+        for (ghost in playerTeam!!)
+        {
+            text = text.plus(ghost.name).plus("\t")
+            total += ghost.strength
+        }
+
+        playerTeamText?.text = text
+        totalText.text =total.toString()
 
     }
 
