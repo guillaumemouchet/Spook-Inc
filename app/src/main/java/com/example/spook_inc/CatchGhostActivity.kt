@@ -77,6 +77,7 @@ class CatchGhostActivity : AppCompatActivity() {
             true
         }
     }
+
     //Cycle de vie d'une application
 
     override fun onStart() {
