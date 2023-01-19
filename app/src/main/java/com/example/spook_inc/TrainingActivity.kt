@@ -18,9 +18,9 @@ class TrainingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_training)
 
         val btnAddTeam = findViewById<Button>(R.id.btnAdd)
-
         val btnGhost = findViewById<ImageButton>(R.id.image6)
-        val ghost = Ghost(1,"Charlie",10)
+
+        val ghost =  Ghost(1,"Charlie", 10)
 
         btnGhost.setOnClickListener(){
             btnAddTeam.visibility = View.VISIBLE
@@ -30,6 +30,9 @@ class TrainingActivity : AppCompatActivity() {
 
         btnAddTeam.setOnClickListener(){
             Toast.makeText(this, "AddTeam: ${ghost.name}", Toast.LENGTH_SHORT).show()
+            //var ghostnoise = MediaPlayer.create(this, R.raw.ghost)
+            //ghostnoise.setVolume(1f, 1f)
+            //ghostnoise.start()
         }
 
     }
