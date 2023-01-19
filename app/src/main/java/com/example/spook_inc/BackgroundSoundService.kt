@@ -21,7 +21,7 @@ class BackgroundSoundService : Service() {
         mediaPlayer?.start()
         Toast.makeText(
             applicationContext,
-            "Start of music",
+            "Start",
             Toast.LENGTH_SHORT
         ).show()
 
@@ -37,7 +37,7 @@ class BackgroundSoundService : Service() {
                 mediaPlayer?.pause()
                 Toast.makeText(
                     applicationContext,
-                    "Pause music",
+                    "Pause",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -46,7 +46,7 @@ class BackgroundSoundService : Service() {
             mediaPlayer?.start() //supposed to resume
             Toast.makeText(
                 applicationContext,
-                "Resume Spooky scary skeleton in the Background",
+                "Resume",
                 Toast.LENGTH_SHORT
             ).show()
         }
