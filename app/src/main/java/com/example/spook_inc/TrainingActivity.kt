@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.ImageButton
 
 import android.widget.Toast
-import androidx.core.view.isInvisible
 
 class TrainingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,22 +31,4 @@ class TrainingActivity : AppCompatActivity() {
 
     }
 
-}
-
-class Ghost(val id: Int, val name: String, val strength: Int)
-{
-    //val id: Int,
-    //val name: String,
-    //val strength: Int,
-    //val img
-
-    fun main()
-    {
-        Log.i("Ghost", name)
-    }
-
-    fun display()
-    {
-
-    }
 }
