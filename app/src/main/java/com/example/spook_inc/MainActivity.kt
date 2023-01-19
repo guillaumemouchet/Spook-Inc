@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
             lightclick.setVolume(1f, 1f)
             lightclick.start();
 
-
             if (lightOff) {
 
                 flashLightOff.setImageResource(R.drawable.flashlight_on);

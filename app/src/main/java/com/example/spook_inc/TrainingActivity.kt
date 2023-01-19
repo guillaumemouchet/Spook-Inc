@@ -1,6 +1,7 @@
 package com.example.spook_inc
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,13 +27,14 @@ class TrainingActivity : AppCompatActivity() {
             btnAddTeam.visibility = View.VISIBLE
             ghost.main()
             btnAddTeam.text = "Add ${ghost.name}"
+            var ghostnoise = MediaPlayer.create(this, R.raw.ghost)
+            ghostnoise.setVolume(1f, 1f)
+            ghostnoise.start()
         }
 
         btnAddTeam.setOnClickListener(){
             Toast.makeText(this, "AddTeam: ${ghost.name}", Toast.LENGTH_SHORT).show()
-            //var ghostnoise = MediaPlayer.create(this, R.raw.ghost)
-            //ghostnoise.setVolume(1f, 1f)
-            //ghostnoise.start()
+
         }
 
     }
