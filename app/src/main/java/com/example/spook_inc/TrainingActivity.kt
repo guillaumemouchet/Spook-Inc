@@ -70,7 +70,7 @@ class TrainingActivity : AppCompatActivity() {
 
 
             var ghostnoise = MediaPlayer.create(context, R.raw.ghost)
-            ghostnoise.setVolume(1f, 1f)
+            ghostnoise.setVolume(0.5f, 0.5f)
             ghostnoise.start()
         }
 
