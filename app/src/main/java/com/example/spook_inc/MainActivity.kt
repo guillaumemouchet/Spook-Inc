@@ -69,21 +69,21 @@ class MainActivity : AppCompatActivity() {
 
         btnGhost.setOnClickListener() {
             var ghostnoise = MediaPlayer.create(this, R.raw.ghost);
-            ghostnoise.setVolume(1f, 1f)
+            ghostnoise.setVolume(0.5f, 0.5f)
             ghostnoise.start();
             catchGhosts();
         }
 
         btnTraining.setOnClickListener() {
             var whistlenoise = MediaPlayer.create(this, R.raw.whistle);
-            whistlenoise.setVolume(0.2f, 0.2f)
+            whistlenoise.setVolume(0.1f, 0.1f)
             whistlenoise.start();
             training();
         }
 
         btnSpook.setOnClickListener() {
             var kidnoise = MediaPlayer.create(this, R.raw.cri2);
-            kidnoise.setVolume(0.2f, 0.2f)
+            kidnoise.setVolume(0.1f, 0.1f)
             kidnoise.start();
             spook();
         }

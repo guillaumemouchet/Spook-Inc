@@ -29,8 +29,9 @@ class CatchGhostActivity : AppCompatActivity() {
         val batteryStatus = this.registerReceiver(null, ifilter)
         val level = batteryStatus!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
         val scale = batteryStatus!!.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-        val batteryPct = level / scale.toFloat() * 100;
+        var batteryPct = level / scale.toFloat() * 100;
 
+        batteryPct = 30f;
         //change the size of image from the battery  * batteryPct/100
         val size = (800 * batteryPct/100).toInt()
         image.getLayoutParams().height = size
