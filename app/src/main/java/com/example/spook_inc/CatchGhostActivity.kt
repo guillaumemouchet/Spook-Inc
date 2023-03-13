@@ -1,6 +1,7 @@
 package com.example.spook_inc
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
@@ -10,8 +11,18 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import java.io.File
+import java.io.FileWriter
+import java.io.ObjectOutputStream
+import java.io.PrintWriter
 
 class CatchGhostActivity : AppCompatActivity() {
+
+    private var ghost = Ghost(1, "John", 123)
+    private var ghost2 = Ghost(55, "Jane", 1000)
+
     private lateinit var mainLayout: ViewGroup
     private lateinit var image: ImageView
     // default position of image
@@ -24,6 +35,7 @@ class CatchGhostActivity : AppCompatActivity() {
         setContentView(R.layout.activity_catch_ghost)
         image = findViewById(R.id.imageView)
         mainLayout = findViewById(R.id.main)
+        val btnTest = findViewById<Button>(R.id.btn_test)
         // Get battery Level
         val ifilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
         val batteryStatus = this.registerReceiver(null, ifilter)
@@ -39,6 +51,24 @@ class CatchGhostActivity : AppCompatActivity() {
         // returns True if the listener has
         // consumed the event, otherwise False.
         image.setOnTouchListener(onTouchListener())
+
+        btnTest.setOnClickListener {
+            val context = applicationContext
+            val directory = context.filesDir
+
+            val filename = "my_ghosts.json"
+            val file = File(directory, filename)
+            var ghostJson = Json.encodeToString(ghost)
+            PrintWriter(FileWriter(file.path, true)).use {
+                it.write("$ghostJson,")
+            }
+            ghostJson = Json.encodeToString(ghost2)
+            PrintWriter(FileWriter(file.path, true)).use {
+                it.write(ghostJson)
+            }
+
+
+        }
 
     }
 

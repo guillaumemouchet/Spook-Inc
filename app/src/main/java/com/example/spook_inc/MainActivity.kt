@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +40,23 @@ class MainActivity : AppCompatActivity() {
         ghostAnimator.start()
 
         var lightOff = true
+
+        //Creating local storage
+        val context = applicationContext
+        val directory = context.filesDir
+
+        val filename = "my_ghosts.json"
+        val ghostFile = File(directory, filename)
+        if(!ghostFile.exists())
+        {
+            ghostFile.createNewFile()
+        }
+        //TODO delete once dev over
+        //For debug purpose to keep clean file
+        else{
+            ghostFile.delete()
+            ghostFile.createNewFile()
+        }
 
         flashLightOff.setOnClickListener() {
 
