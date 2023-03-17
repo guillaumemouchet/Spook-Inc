@@ -6,10 +6,12 @@ import android.content.IntentFilter
 import android.os.BatteryManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.google.ar.core.ArCoreApk
 
 class CatchGhostActivity : AppCompatActivity() {
     private lateinit var mainLayout: ViewGroup
@@ -41,7 +43,6 @@ class CatchGhostActivity : AppCompatActivity() {
         image.setOnTouchListener(onTouchListener())
 
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     private fun onTouchListener(): View.OnTouchListener {
@@ -106,6 +107,12 @@ class CatchGhostActivity : AppCompatActivity() {
     override fun onResume() {
         // "super" after (continues flow)
         super.onResume()
+
+        // ARCore requires camera permission to operate.
+        if (!CameraPermissionHelper.hasCameraPermission(this)) {
+            CameraPermissionHelper.requestCameraPermission(this)
+            return
+        }
     }
 
     override fun onPause() {

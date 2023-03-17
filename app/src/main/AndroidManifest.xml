@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.GET_TASKS" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.ar" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -48,6 +51,7 @@
         </activity>
         <service android:enabled="true" android:name=".BackgroundSoundService" android:stopWithTask="true" />
 
+        <meta-data android:name="com.google.ar.core" android:value="required" />
     </application>
 
 </manifest>
