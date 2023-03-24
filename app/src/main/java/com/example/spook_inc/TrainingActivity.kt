@@ -5,8 +5,26 @@ import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
+<<<<<<< HEAD
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+=======
+import android.util.JsonReader
+import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
+
+import android.widget.Toast
+
+import android.widget.*
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
+import java.io.File
+import java.io.ObjectInputStream
+>>>>>>> 1dd2440 (write and read ghost)
 
 
 class TrainingActivity : AppCompatActivity() {
@@ -27,7 +45,19 @@ class TrainingActivity : AppCompatActivity() {
         btnAddTeam = findViewById<Button>(R.id.btnAdd)
         playerTeamText = findViewById<TextView>(R.id.playerTeamText)
 
+
         playerGhosts = playerGhosts.plus(Ghost(3,"Valentin", 30, Ghost_Type.SCYTHE))
+
+        val context = applicationContext
+        val directory = context.filesDir
+
+        val filename = "my_ghosts.json"
+        val file = File(directory, filename)
+        val storedGhostString = file.inputStream().bufferedReader().use { it.readLines() }
+        Log.d("Json", storedGhostString.toString())
+        val storedGhosts = Json.decodeFromString<List<Ghost>>(storedGhostString.toString())
+        playerGhosts = playerGhosts.plus(storedGhosts)
+
         for (ghost in playerGhosts!!)
         {
             displayGhost(ghost, this)
