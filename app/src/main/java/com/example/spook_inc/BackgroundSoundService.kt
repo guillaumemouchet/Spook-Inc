@@ -17,13 +17,9 @@ class BackgroundSoundService : Service() {
     override fun onCreate() {
         mediaPlayer = MediaPlayer.create(this, R.raw.background)
         mediaPlayer?.isLooping = true // Set looping
-        mediaPlayer?.setVolume(0.06f, 0.06f)
+        mediaPlayer?.setVolume(0.1f, 0.1f)
         mediaPlayer?.start()
-        Toast.makeText(
-            applicationContext,
-            "Start",
-            Toast.LENGTH_SHORT
-        ).show()
+        //Toast.makeText(applicationContext,"Start",Toast.LENGTH_SHORT).show()
 
     }
 
@@ -35,20 +31,12 @@ class BackgroundSoundService : Service() {
                 first = false;
             }else {
                 mediaPlayer?.pause()
-                Toast.makeText(
-                    applicationContext,
-                    "Pause",
-                    Toast.LENGTH_SHORT
-                ).show()
+                //Toast.makeText(applicationContext,"Pause",Toast.LENGTH_SHORT).show()
             }
 
         }else {
             mediaPlayer?.start() //supposed to resume
-            Toast.makeText(
-                applicationContext,
-                "Resume",
-                Toast.LENGTH_SHORT
-            ).show()
+            //Toast.makeText(applicationContext,"Resume",Toast.LENGTH_SHORT).show()
         }
         return START_NOT_STICKY
     }
