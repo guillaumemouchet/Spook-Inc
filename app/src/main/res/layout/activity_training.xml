@@ -3,14 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#1034A6">
 
     <TextView
         android:id="@+id/teamText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="21dp"
         android:text="Ghost Team"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/ghostTeamView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,8 +21,9 @@
 
     <ScrollView
         android:id="@+id/ghostTeamView"
-        android:layout_width="412dp"
-        android:layout_height="107dp"
+        android:layout_width="406dp"
+        android:layout_height="142dp"
+        android:background="#0F52BA"
         app:layout_constraintBottom_toTopOf="@+id/spookRatingText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,8 +37,9 @@
             <TextView
                 android:id="@+id/playerTeamText"
                 android:layout_width="412dp"
-                android:layout_height="105dp"
-                android:text="test" />
+                android:layout_height="match_parent"
+                android:text="test"
+                android:textColor="#BBDEFB" />
 
         </LinearLayout>
     </ScrollView>
@@ -44,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Spook rating: "
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/boxText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/boxText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
@@ -65,6 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ghost Box"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/ghostBoxView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,6 +82,7 @@
         android:id="@+id/btnRemove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#0F52BA"
         android:text="Remove"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/ghostBoxView"
@@ -85,22 +94,23 @@
         android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#0F52BA"
         android:enabled="true"
         android:text="Add"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/ghostBoxView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/boxText" />
 
     <ScrollView
         android:id="@+id/ghostBoxView"
-        android:layout_width="425dp"
-        android:layout_height="347dp"
+        android:layout_width="411dp"
+        android:layout_height="346dp"
+        android:background="#0F52BA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spookRatingText"
         app:layout_constraintVertical_bias="1.0"

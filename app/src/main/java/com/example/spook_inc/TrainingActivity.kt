@@ -2,6 +2,7 @@ package com.example.spook_inc
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.*
@@ -86,10 +87,13 @@ class TrainingActivity : AppCompatActivity() {
 
 
         val name = TextView(context)
+        name.setTextColor(Color.WHITE)
         name.text = "Name: ${ghost.name}"
         layoutVertical.addView(name)
 
         val strength = TextView(context)
+        strength.setTextColor(Color.WHITE)
+
         strength.text = "Strength: ${ghost.strength}"
         layoutVertical.addView(strength)
 
