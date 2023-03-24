@@ -20,8 +20,8 @@ import java.io.PrintWriter
 
 class CatchGhostActivity : AppCompatActivity() {
 
-    private var ghost = Ghost(1, "John", 123)
-    private var ghost2 = Ghost(55, "Jane", 1000)
+    private var ghost = Ghost(1, "John", 123, Ghost_Type.TOPHAT)
+    private var ghost2 = Ghost(55, "Jane", 1000, Ghost_Type.MINITOPHAT)
 
     private lateinit var mainLayout: ViewGroup
     private lateinit var image: ImageView

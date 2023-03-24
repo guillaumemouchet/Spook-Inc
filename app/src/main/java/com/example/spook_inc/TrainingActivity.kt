@@ -5,27 +5,20 @@ import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
-<<<<<<< HEAD
-import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-=======
 import android.util.JsonReader
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-
 import android.widget.Toast
-
 import android.widget.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import java.io.File
 import java.io.ObjectInputStream
->>>>>>> 1dd2440 (write and read ghost)
-
 
 class TrainingActivity : AppCompatActivity() {
     private val COUNTER_KEY = "counter"
