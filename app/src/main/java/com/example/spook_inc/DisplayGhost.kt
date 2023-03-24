@@ -20,7 +20,26 @@ class DisplayGhost(ghost: Ghost, context: Context) : LinearLayout(context) {
         val btnAddTeam = findViewById<Button>(R.id.btnAdd)
 
         val imgBtn = ImageButton(context)
-        imgBtn.setImageResource(R.drawable.ghost)
+        var ghostImg = R.drawable.ghost
+
+        when (ghost.ghostType) {
+            Ghost_Type.TOPHAT -> {
+                ghostImg = R.drawable.ghost_tophat_front
+            }
+            Ghost_Type.MINITOPHAT -> {
+                ghostImg = R.drawable.ghost_minitophat_front
+            }
+            Ghost_Type.NORMAL -> {
+                ghostImg = R.drawable.ghost_normal_front
+            }
+            Ghost_Type.SCYTHE -> {
+                ghostImg = R.drawable.ghost_scythe_front
+            }
+            else -> { // Note the block
+                ghostImg = R.drawable.ghost_normal_front
+            }
+        }
+        imgBtn.setImageResource(ghostImg)
 
         imgBtn?.setOnClickListener(){
             btnAddTeam?.visibility = LinearLayout.VISIBLE

@@ -3,17 +3,9 @@ package com.example.spook_inc
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
-
-import android.widget.Toast
-
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 
 
 class TrainingActivity : AppCompatActivity() {
@@ -26,7 +18,7 @@ class TrainingActivity : AppCompatActivity() {
 
     private var playerTeam: List<Ghost> = mutableListOf()
 
-    var playerGhosts: List<Ghost> = mutableListOf(Ghost(1,"Charlie", 10),Ghost(2,"Damien", 100))
+    var playerGhosts: List<Ghost> = mutableListOf(Ghost(1,"Charlie", 10,Ghost_Type.MINITOPHAT),Ghost(2,"Damien", 100, Ghost_Type.TOPHAT))
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_training)
@@ -34,7 +26,7 @@ class TrainingActivity : AppCompatActivity() {
         btnAddTeam = findViewById<Button>(R.id.btnAdd)
         playerTeamText = findViewById<TextView>(R.id.playerTeamText)
 
-        playerGhosts = playerGhosts.plus(Ghost(3,"Valentin", 30))
+        playerGhosts = playerGhosts.plus(Ghost(3,"Valentin", 30, Ghost_Type.SCYTHE))
         for (ghost in playerGhosts!!)
         {
             displayGhost(ghost, this)
@@ -60,8 +52,26 @@ class TrainingActivity : AppCompatActivity() {
         val btnAddTeam = findViewById<Button>(R.id.btnAdd)
 
         val imgBtn = ImageButton(context)
-        imgBtn.setImageResource(R.drawable.ghost)
+        var ghostImg = R.drawable.ghost
 
+        when (ghost.ghostType) {
+            Ghost_Type.TOPHAT -> {
+                ghostImg = R.drawable.ghost_tophat_front
+            }
+            Ghost_Type.MINITOPHAT -> {
+                ghostImg = R.drawable.ghost_minitophat_front
+            }
+            Ghost_Type.NORMAL -> {
+                ghostImg = R.drawable.ghost_normal_front
+            }
+            Ghost_Type.SCYTHE -> {
+                ghostImg = R.drawable.ghost_scythe_front
+            }
+            else -> { // Note the block
+                ghostImg = R.drawable.ghost_normal_front
+            }
+        }
+        imgBtn.setImageResource(ghostImg)
         imgBtn?.setOnClickListener(){
             btnAddTeam?.visibility = LinearLayout.VISIBLE
             ghost.main()
@@ -70,7 +80,7 @@ class TrainingActivity : AppCompatActivity() {
 
 
             var ghostnoise = MediaPlayer.create(context, R.raw.ghost)
-            ghostnoise.setVolume(0.5f, 0.5f)
+            ghostnoise.setVolume(1f, 1f)
             ghostnoise.start()
         }
 

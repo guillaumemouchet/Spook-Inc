@@ -3,16 +3,62 @@ package com.example.spook_inc
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 
 class SpookActivity : AppCompatActivity() {
     private val COUNTER_KEY = "counter"
     private var counter = 0
+
+    private lateinit var btnHouse3: HouseButton
+    private lateinit var btnHouse2: HouseButton
+    private lateinit var btnHouse1: HouseButton
+
+    private val house1Victory = false
+    private val house2Victory = false
+    private val house3Victory = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spook)
+        btnHouse3 = findViewById(R.id.house_difficulty_3)
+        btnHouse2 = findViewById(R.id.house_difficulty_2)
+        btnHouse1 = findViewById(R.id.house_difficulty_1)
+        if(house1Victory)
+        {
+            btnHouse1.visibility = View.VISIBLE
+        }
+
+        if(house2Victory)
+        {
+            btnHouse2.visibility = View.VISIBLE
+        }
+
+        if(house3Victory)
+        {
+            btnHouse3.visibility = View.VISIBLE
+        }
+
+        btnHouse3.setOnClickListener{
+            startSpook(500)
+        }
+        btnHouse2.setOnClickListener{
+            startSpook(300)
+        }
+        btnHouse1.setOnClickListener{
+            startSpook(100)
+        }
 
     }
-    //Cycle de vie d'une application
+
+    private fun startSpook(kidStrength: Int)
+    {
+        val intent = Intent(this, SpookKidActivity::class.java)
+        intent.putExtra("kidStrength", kidStrength)
+
+        startActivity(intent)
+    }
+
+    //Cycle de vie dune application
 
     override fun onStart() {
         //Start sound of BG
