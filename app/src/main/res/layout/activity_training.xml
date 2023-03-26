@@ -30,18 +30,10 @@
         app:layout_constraintTop_toBottomOf="@+id/teamText">
 
         <LinearLayout
+            android:id="@+id/ghostTeamLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/playerTeamText"
-                android:layout_width="412dp"
-                android:layout_height="match_parent"
-                android:text="test"
-                android:textColor="#BBDEFB" />
-
-        </LinearLayout>
+            android:orientation="vertical" />
     </ScrollView>
 
     <TextView

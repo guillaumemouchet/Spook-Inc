@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         val context = applicationContext
         val directory = context.filesDir
 
+        //create Collection
         val filename = "my_ghosts.json"
         val ghostFile = File(directory, filename)
         if(!ghostFile.exists())
@@ -56,6 +57,20 @@ class MainActivity : AppCompatActivity() {
         else{
             ghostFile.delete()
             ghostFile.createNewFile()
+        }
+
+        //create Team
+        val filenameTeam = "my_team.json"
+        val ghostFileTeam = File(directory, filenameTeam)
+        if(!ghostFileTeam.exists())
+        {
+            ghostFileTeam.createNewFile()
+        }
+        //TODO delete once dev over
+        //For debug purpose to keep clean file
+        else{
+            ghostFileTeam.delete()
+            ghostFileTeam.createNewFile()
         }
 
         flashLightOff.setOnClickListener() {

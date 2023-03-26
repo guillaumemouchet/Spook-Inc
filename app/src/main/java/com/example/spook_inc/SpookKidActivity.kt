@@ -3,7 +3,11 @@ package com.example.spook_inc
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import java.io.File
 
 class SpookKidActivity : AppCompatActivity() {
     private val COUNTER_KEY = "counter"
@@ -13,7 +17,7 @@ class SpookKidActivity : AppCompatActivity() {
     private lateinit var textKid: TextView
 
     //Change to local storage team or global Var
-    private var playerTeam: List<Ghost> = mutableListOf(Ghost(1,"Charlie", 10,Ghost_Type.TOPHAT),Ghost(2,"Damien", 100,Ghost_Type.MINITOPHAT))
+    private var playerTeam: List<Ghost> = mutableListOf()//Ghost(1,"Charlie", 10,Ghost_Type.TOPHAT),Ghost(2,"Damien", 100,Ghost_Type.MINITOPHAT))
     private var playerTeamImages: List<ImageView> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +30,17 @@ class SpookKidActivity : AppCompatActivity() {
         playerTeamImages = playerTeamImages.plus(g1Image)
         playerTeamImages = playerTeamImages.plus(g2Image)
         playerTeamImages = playerTeamImages.plus(g3Image)
+
+        val context = applicationContext
+        val directory = context.filesDir
+
+        //Get player Team
+        val filename = "my_team.json"
+        val file = File(directory, filename)
+        val storedGhostString = file.inputStream().bufferedReader().use { it.readLines() }
+        Log.d("Json", storedGhostString.toString())
+        val storedGhosts = Json.decodeFromString<List<Ghost>>(storedGhostString.toString())
+        playerTeam = playerTeam.plus(storedGhosts)
 
         viewKid = findViewById(R.id.kidImage)
         textKid = findViewById(R.id.kidNameText)
