@@ -41,9 +41,8 @@ class CatchGhostActivity : AppCompatActivity() {
         val batteryStatus = this.registerReceiver(null, ifilter)
         val level = batteryStatus!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
         val scale = batteryStatus!!.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-        var batteryPct = level / scale.toFloat() * 100;
+        var batteryPct = level / scale.toFloat() * 100
 
-        batteryPct = 30f;
         //change the size of image from the battery  * batteryPct/100
         val size = (800 * batteryPct/100).toInt()
         image.getLayoutParams().height = size
@@ -53,6 +52,10 @@ class CatchGhostActivity : AppCompatActivity() {
         // consumed the event, otherwise False.
         image.setOnTouchListener(onTouchListener())
 
+        //Can't add twice those ghosts
+        // TODO Check if they are already values in the JSON
+        // if yes, need to add a "," before adding
+        // Else if it's the first only need to add the ghost
         btnTest.setOnClickListener {
             val context = applicationContext
             val directory = context.filesDir
@@ -67,7 +70,6 @@ class CatchGhostActivity : AppCompatActivity() {
             PrintWriter(FileWriter(file.path, true)).use {
                 it.write(ghostJson)
             }
-
 
         }
 
