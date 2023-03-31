@@ -23,16 +23,16 @@ class SpookActivity : AppCompatActivity() {
         btnHouse3 = findViewById(R.id.house_difficulty_3)
         btnHouse2 = findViewById(R.id.house_difficulty_2)
         btnHouse1 = findViewById(R.id.house_difficulty_1)
+
+
         if(house1Victory)
         {
             btnHouse1.visibility = View.VISIBLE
         }
-
         if(house2Victory)
         {
             btnHouse2.visibility = View.VISIBLE
         }
-
         if(house3Victory)
         {
             btnHouse3.visibility = View.VISIBLE
@@ -109,7 +109,6 @@ class SpookActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        //stopService(Intent(this, BackgroundSoundService::class.java))
 
         // "super" after (continues flow)
         super.onDestroy()

@@ -19,22 +19,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
+    <HorizontalScrollView
         android:id="@+id/ghostTeamView"
-        android:layout_width="406dp"
-        android:layout_height="142dp"
+        android:layout_width="408dp"
+        android:layout_height="189dp"
         android:background="#0F52BA"
+        android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/spookRatingText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamText">
+        app:layout_constraintTop_toBottomOf="@+id/teamText"
+        tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
             android:id="@+id/ghostTeamLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
 
     <TextView
         android:id="@+id/spookRatingText"
@@ -67,8 +69,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/ghostBoxView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ghostTeamView" />
+        app:layout_constraintTop_toBottomOf="@+id/ghostTeamView"
+        app:layout_constraintVertical_bias="0.436" />
 
     <Button
         android:id="@+id/btnRemove"

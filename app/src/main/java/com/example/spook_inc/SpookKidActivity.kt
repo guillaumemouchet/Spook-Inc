@@ -27,14 +27,22 @@ class SpookKidActivity : AppCompatActivity() {
         val g2Image : ImageView = findViewById(R.id.ghostImage2)
         val g3Image : ImageView = findViewById(R.id.ghostImage3)
 
+        viewKid = findViewById(R.id.kidImage)
+        textKid = findViewById(R.id.kidNameText)
+
+        /*
+         * Used to change dynamically the image of our team
+         */
         playerTeamImages = playerTeamImages.plus(g1Image)
         playerTeamImages = playerTeamImages.plus(g2Image)
         playerTeamImages = playerTeamImages.plus(g3Image)
 
+
+        // Get context
         val context = applicationContext
         val directory = context.filesDir
 
-        //Get player Team
+        // Get player Team
         val filename = "my_team.json"
         val file = File(directory, filename)
         val storedGhostString = file.inputStream().bufferedReader().use { it.readLines() }
@@ -42,12 +50,13 @@ class SpookKidActivity : AppCompatActivity() {
         val storedGhosts = Json.decodeFromString<List<Ghost>>(storedGhostString.toString())
         playerTeam = playerTeam.plus(storedGhosts)
 
-        viewKid = findViewById(R.id.kidImage)
-        textKid = findViewById(R.id.kidNameText)
 
-        val kidStrength: Int = intent.getIntExtra("kidStrength", 0)
-        var ghostImage = R.drawable.ghost_normal_back
         var totalStrength = 0
+        /*
+         * Get the ghosts in our teams and set the corresponding image to the playerTeamImages
+         * Get the total strength to see if the win against the kids
+         */
+        var ghostImage = R.drawable.ghost_normal_back
         for (i in playerTeam.indices) {
 
             totalStrength += playerTeam[i].strength
@@ -70,26 +79,34 @@ class SpookKidActivity : AppCompatActivity() {
             }
             playerTeamImages[i].setImageResource(ghostImage)
         }
-        print(totalStrength)
 
+        /*
+         * Get the kid Strength from the previous activity
+         * It will decide what kids they will fight
+         */
+        val kidStrength: Int = intent.getIntExtra("kidStrength", 0)
         when (kidStrength) {
             100 -> {
                 viewKid.setImageResource(R.drawable.karate_kid_photo)
-                textKid.text = "The Karate Kids 100"
+                textKid.text = "The Karate Kids $kidStrength"
             }
             300 -> {
                 viewKid.setImageResource(R.drawable.nerds)
-                textKid.text = "The nerds 300"
+                textKid.text = "The nerds $kidStrength"
             }
             500 -> {
                 viewKid.setImageResource(R.drawable.cool_kid)
-                textKid.text = "The Cool Kid 500"
+                textKid.text = "The Cool Kid $kidStrength"
             }
             else -> { // Note the block
                 print("ERROR")
             }
         }
 
+
+        /*
+         * TODO : Check Victory and have a progress bar
+         */
         if(totalStrength>kidStrength)
         {
             Toast.makeText(applicationContext,"Victory ! \nFinish him",Toast.LENGTH_SHORT).show()
@@ -145,7 +162,6 @@ class SpookKidActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        //stopService(Intent(this, BackgroundSoundService::class.java))
 
         // "super" after (continues flow)
         super.onDestroy()

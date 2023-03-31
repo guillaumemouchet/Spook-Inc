@@ -2,11 +2,13 @@ package com.example.spook_inc
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
-import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.serialization.decodeFromString
@@ -15,6 +17,7 @@ import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileWriter
 import java.io.PrintWriter
+import kotlin.math.roundToInt
 
 
 class TrainingActivity : AppCompatActivity() {
@@ -29,17 +32,17 @@ class TrainingActivity : AppCompatActivity() {
 
     private var playerTeam: List<Ghost> = mutableListOf()
 
-    var playerGhosts: List<Ghost> = mutableListOf()//Ghost(1,"Charlie", 10,Ghost_Type.MINITOPHAT),Ghost(2,"Damien", 100, Ghost_Type.TOPHAT))
+    var playerGhosts: List<Ghost> = mutableListOf(Ghost(1,"Charlie", 10,Ghost_Type.SCYTHE),Ghost(2,"Damien", 100, Ghost_Type.TOPHAT))
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_training)
-
         btnAddTeam = findViewById<Button>(R.id.btnAdd)
         btnRemoveTeam = findViewById<Button>(R.id.btnRemove)
         strengthText = findViewById<TextView>(R.id.spookRatingValueText)
 
         openFiles()
         displayAll()
+
         btnAddTeam?.setOnClickListener(){
             createActionListenerAddTeam()
         }
@@ -49,6 +52,40 @@ class TrainingActivity : AppCompatActivity() {
 
     }
 
+
+    /*
+     * Open the Json files and store them in the MutableLists
+     */
+    private fun openFiles()
+    {
+        // Get the JSON from the Collection
+        val context = applicationContext
+        val directory = context.filesDir
+
+        val filename = "my_ghosts.json"
+        val file = File(directory, filename)
+        val storedGhostString = file.inputStream().bufferedReader().use { it.readLines() }
+        Log.d("Json", storedGhostString.toString())
+        val storedGhosts = Json.decodeFromString<List<Ghost>>(storedGhostString.toString())
+        playerGhosts = playerGhosts.plus(storedGhosts)
+
+        // Get the JSON from the Team
+        try {
+            val filenameTeam = "my_team.json"
+            val fileTeam = File(directory, filenameTeam)
+            val storedGhostStringTeam = fileTeam.inputStream().bufferedReader().use { it.readLines() }
+            Log.d("Json", storedGhostStringTeam.toString())
+            val storedGhostsTeam = Json.decodeFromString<List<Ghost>>(storedGhostStringTeam.toString())
+            playerTeam = playerTeam.plus(storedGhostsTeam)
+        }catch(e: NoSuchFileException)
+        {
+            //my_team ghost is empty
+        }
+    }
+    
+    /*
+     * Display all the content in the Ghost collection and the Ghost team
+     */
     private fun displayAll()
     {
         //Display everything
@@ -66,46 +103,21 @@ class TrainingActivity : AppCompatActivity() {
         strengthText?.text = totalSpook.toString()
 
     }
-    private fun openFiles()
-    {
-        // Get the JSON from the Collection
-        //Get the ghosts
-        val context = applicationContext
-        val directory = context.filesDir
-
-        val filename = "my_ghosts.json"
-        val file = File(directory, filename)
-        val storedGhostString = file.inputStream().bufferedReader().use { it.readLines() }
-        Log.d("Json", storedGhostString.toString())
-        val storedGhosts = Json.decodeFromString<List<Ghost>>(storedGhostString.toString())
-        playerGhosts = playerGhosts.plus(storedGhosts)
-
-        // Get the JSON from the Team
-        try {
-            val filenameTeam = "my_team.json"
-            val fileTeam = File(directory, filenameTeam)
-            val storedGhostStringTeam =
-                fileTeam.inputStream().bufferedReader().use { it.readLines() }
-            Log.d("Json", storedGhostStringTeam.toString())
-            val storedGhostsTeam =
-                Json.decodeFromString<List<Ghost>>(storedGhostStringTeam.toString())
-            playerTeam = playerTeam.plus(storedGhostsTeam)
-        }catch(e: NoSuchFileException)
-        {
-            //my_team ghost is empty
-        }
-    }
+    /*
+     * Display a Ghost in the ScrollView of the collection
+     */
     private fun displayGhostPlayer(ghost : Ghost, context:Context)
     {
         val ghostLayout = findViewById<LinearLayout>(R.id.ghostLayout)
         val layoutHorizontal = LinearLayout(context)
         val layoutVertical = LinearLayout(context)
+        val btnAddTeam = findViewById<Button>(R.id.btnAdd)
 
         layoutVertical.orientation = LinearLayout.VERTICAL
         layoutHorizontal.orientation = LinearLayout.HORIZONTAL
 
-        val btnAddTeam = findViewById<Button>(R.id.btnAdd)
 
+        // Choose the Image of the Ghost, it depends on his GhostType
         val imgBtn = ImageButton(context)
         var ghostImg = R.drawable.ghost
 
@@ -127,14 +139,15 @@ class TrainingActivity : AppCompatActivity() {
             }
         }
         imgBtn.setImageResource(ghostImg)
+
+        //When you click on the image you see an add button to put it in your team
         imgBtn?.setOnClickListener(){
             btnAddTeam?.visibility = LinearLayout.VISIBLE
             btnRemoveTeam?.visibility = LinearLayout.INVISIBLE
-
-            //ghost.main()
             btnAddTeam?.text = "Add ${ghost.name}"
             currentGhost = ghost
 
+            //Sound of Ghost when you click on it
             var ghostnoise = MediaPlayer.create(context, R.raw.ghost)
             ghostnoise.setVolume(1f, 1f)
             ghostnoise.start()
@@ -157,14 +170,17 @@ class TrainingActivity : AppCompatActivity() {
 
         ghostLayout.addView(layoutHorizontal)
     }
-
+    /*
+     * Display a Ghost in the HorizontalScrollView of the team
+     */
     private fun displayGhostTeam(ghost : Ghost, context:Context) {
         val ghostTeamLayout = findViewById<LinearLayout>(R.id.ghostTeamLayout)
         val layoutVertical = LinearLayout(context)
 
         layoutVertical.orientation = LinearLayout.VERTICAL
 
-        val imgBtn = ImageButton(context)
+        // Choose the Image of the Ghost, it depends on his GhostType
+        var imgBtn = ImageButton(context)
         var ghostImg = R.drawable.ghost_normal_front
 
         when (ghost.ghostType) {
@@ -184,21 +200,25 @@ class TrainingActivity : AppCompatActivity() {
                 ghostImg = R.drawable.ghost_normal_front
             }
         }
-        imgBtn.setImageResource(ghostImg)
+
+        //Rescale the image so it fits in the HorizontalScrollView
+        //ghostImg is an Int so we need to convert it to an (Bitmap)Image before rescaling it
+        val b = BitmapFactory.decodeResource(context.resources, ghostImg);
+        val sizeX = (b.width * 0.90).roundToInt()
+        val sizeY = (b.width * 0.90).roundToInt()
+        val bitmapResized = Bitmap.createScaledBitmap(b, sizeX, sizeY, false)
+
+        imgBtn.setImageBitmap(bitmapResized)
+
+        //When you click on the image you see an remove button to remove it from your team
         imgBtn.setOnClickListener(){
             btnRemoveTeam?.visibility = LinearLayout.VISIBLE
             btnAddTeam?.visibility = LinearLayout.INVISIBLE
-            //ghost.main()
             btnRemoveTeam?.text = "Remove ${ghost.name}"
             currentGhost = ghost
-
-
-            val ghostnoise = MediaPlayer.create(context, R.raw.ghost)
-            ghostnoise.setVolume(1f, 1f)
-            ghostnoise.start()
         }
-
         layoutVertical.addView(imgBtn)
+
         val name = TextView(context)
         name.setTextColor(Color.WHITE)
         name.text = "Name: ${ghost.name}"
@@ -206,6 +226,12 @@ class TrainingActivity : AppCompatActivity() {
         ghostTeamLayout.addView(layoutVertical)
 
     }
+
+    /*
+     * Add Ghost in Team
+     * The maximum is 3
+     * Can't have twice the same ghost
+     */
     private fun createActionListenerAddTeam()
     {
         if (playerTeam.size >= 3)
@@ -218,9 +244,7 @@ class TrainingActivity : AppCompatActivity() {
         }else
         {
             playerTeam = playerTeam.plus(currentGhost!!)
-
         }
-        Toast.makeText(this, "${playerTeam.size}", Toast.LENGTH_SHORT).show()
 
         //Empty the layout
         val ghostTeamLayout = findViewById<LinearLayout>(R.id.ghostTeamLayout)
@@ -241,16 +265,19 @@ class TrainingActivity : AppCompatActivity() {
 
     }
 
+    /*
+     * Remove Ghost in Team
+     */
     private fun createActionListenerRemoveTeam()
     {
         if(playerTeam.contains(currentGhost))
         {
             playerTeam = playerTeam.minus(currentGhost!!)
-
         }else
         {
             Toast.makeText(this, "${ currentGhost?.name} Not in your Team", Toast.LENGTH_SHORT).show()
         }
+
         //Empty the layout
         val ghostTeamLayout = findViewById<LinearLayout>(R.id.ghostTeamLayout)
         val childCount = ghostTeamLayout.childCount
@@ -271,7 +298,6 @@ class TrainingActivity : AppCompatActivity() {
     }
 
     //Cycle de vie d'une application
-
     override fun onStart() {
         //Start sound of BG
         startService(Intent(this, BackgroundSoundService::class.java))
@@ -302,11 +328,14 @@ class TrainingActivity : AppCompatActivity() {
 
     override fun onPause() {
         startService(Intent(this, BackgroundSoundService::class.java))
+        // Get Context
         val context = applicationContext
         val directory = context.filesDir
-        //save the ghost team
+
+        // Save team in the JSON file
         val filenameTeam = "my_team.json"
         val fileTeam = File(directory, filenameTeam)
+        // Delete the file to start over
         if(fileTeam.exists())
         {
             fileTeam.delete()
@@ -316,49 +345,16 @@ class TrainingActivity : AppCompatActivity() {
             var ghostJson = Json.encodeToString(ghost)
             //Since the file is delete no need to check if there are values before
             PrintWriter(FileWriter(fileTeam.path, true)).use {
+                //The last one must not put a "," or else it won't work
                 if (playerTeam.indexOf(ghost) == playerTeam.size - 1) {
                     it.write(ghostJson)
-
                 } else {
                     it.write(ghostJson)
                     it.write(",")
                 }
-
             }
         }
 
-        //NOT NEEDED HERE save the ghost collection
-        //Seul soucis c'est qu'on augmente la taille à chaque fois
-        /*val filename = "my_ghosts.json"
-        val file = File(directory, filename)
-        for(ghost in playerGhosts)
-        {
-            var ghostJson = Json.encodeToString(ghost)
-            Toast.makeText(this, "${playerGhosts.indexOf(ghost)}", Toast.LENGTH_SHORT).show()
-
-            PrintWriter(FileWriter(file.path, true)).use {
-                if(playerGhosts.indexOf(ghost)==0) {
-                    it.write(",")
-                    it.write(ghostJson)
-                    it.write(",")
-
-                    Toast.makeText(this, "First", Toast.LENGTH_SHORT).show()
-
-                }
-                else if(playerGhosts.indexOf(ghost)==playerGhosts.size-1)
-                    {
-                        it.write(ghostJson)
-                        Toast.makeText(this, "Last", Toast.LENGTH_SHORT).show()
-
-                    }else
-                    {
-                        it.write(ghostJson)
-                        it.write(",")
-                        Toast.makeText(this, "Other", Toast.LENGTH_SHORT).show()
-                    }
-
-            }
-        }*/
         super.onPause()
     }
 
@@ -377,8 +373,6 @@ class TrainingActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        //stopService(Intent(this, BackgroundSoundService::class.java))
-
         // "super" after (continues flow)
         super.onDestroy()
     }

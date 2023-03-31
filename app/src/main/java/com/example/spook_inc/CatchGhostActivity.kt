@@ -36,22 +36,27 @@ class CatchGhostActivity : AppCompatActivity() {
         image = findViewById(R.id.imageView)
         mainLayout = findViewById(R.id.main)
         val btnTest = findViewById<Button>(R.id.btn_test)
+
+
         // Get battery Level
-        val ifilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
-        val batteryStatus = this.registerReceiver(null, ifilter)
+        val filter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
+        val batteryStatus = this.registerReceiver(null, filter)
         val level = batteryStatus!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
         val scale = batteryStatus!!.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
         var batteryPct = level / scale.toFloat() * 100
 
         //change the size of image from the battery  * batteryPct/100
         val size = (800 * batteryPct/100).toInt()
-        image.getLayoutParams().height = size
-        image.getLayoutParams().width = size
+        image.layoutParams.height = size
+        image.layoutParams.width = size
 
         // returns True if the listener has
         // consumed the event, otherwise False.
         image.setOnTouchListener(onTouchListener())
 
+        /*
+         * Temporary Elements
+         */
         //Can't add twice those ghosts
         // TODO Check if they are already values in the JSON
         // if yes, need to add a "," before adding
@@ -70,12 +75,25 @@ class CatchGhostActivity : AppCompatActivity() {
             PrintWriter(FileWriter(file.path, true)).use {
                 it.write(ghostJson)
             }
+        /*
+         * End of Temporary Elements
+         */
 
+
+        /*
+         * TODO : Catch the ghost and put it in the JSON
+         */
+            // TODO Check if they are already values in the JSON
+            // if yes, need to add a "," before adding
+            // Else if it's the first only need to add the ghost
         }
 
     }
 
 
+    /*
+     * Used to move the torch (Yellow circle) in the Activity
+     */
     @SuppressLint("ClickableViewAccessibility")
     private fun onTouchListener(): View.OnTouchListener {
         return View.OnTouchListener { view, event ->
@@ -114,7 +132,6 @@ class CatchGhostActivity : AppCompatActivity() {
     //Cycle de vie d'une application
 
     override fun onStart() {
-        //Start sound of BG
         // "super" after (continues flow)
 
         startService(Intent(this, BackgroundSoundService::class.java))
@@ -162,7 +179,6 @@ class CatchGhostActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        //stopService(Intent(this, BackgroundSoundService::class.java))
 
         // "super" after (continues flow)
         super.onDestroy()
