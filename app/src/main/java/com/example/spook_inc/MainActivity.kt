@@ -32,20 +32,25 @@ class MainActivity : AppCompatActivity() {
 
         var imgForeground = findViewById<ImageView>(R.id.imgForeground)
 
+        /*
+         * The animator makes an object move in the activity
+         * The ghost change size to make it more clickable
+         */
         val ghostAnimator = ObjectAnimator.ofFloat(btnGhost, "scaleY", 1f, 1.1f, 1f)
         ghostAnimator.duration = 800
         ghostAnimator.repeatCount = ValueAnimator.INFINITE
         ghostAnimator.repeatMode = ObjectAnimator.REVERSE
-
         ghostAnimator.start()
 
         var lightOff = true
 
-        //Creating local storage
+        /*
+         * Creating local storage
+         */
         val context = applicationContext
         val directory = context.filesDir
 
-        //create Collection
+        // Create Collection
         val filename = "my_ghosts.json"
         val ghostFile = File(directory, filename)
         if(!ghostFile.exists())
@@ -59,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             ghostFile.createNewFile()
         }
 
-        //create Team
+        // Create Team
         val filenameTeam = "my_team.json"
         val ghostFileTeam = File(directory, filenameTeam)
         if(!ghostFileTeam.exists())
@@ -73,6 +78,11 @@ class MainActivity : AppCompatActivity() {
             ghostFileTeam.createNewFile()
         }
 
+        /*
+         * The Flashlight hides some elements when turned off
+         * The player must click on it to illuminate the activity and see the buttons
+         * A click sound is made on each button press
+         */
         flashLightOff.setOnClickListener() {
 
             var lightclick = MediaPlayer.create(this, R.raw.flashlight);
@@ -100,6 +110,11 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        /*
+         * Add the Listener on the differents Buttons and put music on them
+         * The set Volume doesn't seems to change much
+         */
+
         btnGhost.setOnClickListener() {
             var ghostnoise = MediaPlayer.create(this, R.raw.ghost);
             ghostnoise.setVolume(0.9f, 0.9f)
@@ -123,23 +138,23 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /*
+     * Open the differents Activities
+     */
+
     private fun catchGhosts() {
         val intent = Intent(this, CatchGhostActivity::class.java);
         startActivity(intent);
-
     }
 
     private fun training() {
         val intent = Intent(this, TrainingActivity::class.java);
         startActivity(intent);
-
     }
-
 
     private fun spook() {
         val intent = Intent(this, SpookActivity::class.java);
         startActivity(intent);
-
     }
 
 
