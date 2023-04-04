@@ -82,7 +82,7 @@ class TrainingActivity : AppCompatActivity() {
             //my_team ghost is empty
         }
     }
-    
+
     /*
      * Display all the content in the Ghost collection and the Ghost team
      */
@@ -115,7 +115,6 @@ class TrainingActivity : AppCompatActivity() {
 
         layoutVertical.orientation = LinearLayout.VERTICAL
         layoutHorizontal.orientation = LinearLayout.HORIZONTAL
-
 
         // Choose the Image of the Ghost, it depends on his GhostType
         val imgBtn = ImageButton(context)
