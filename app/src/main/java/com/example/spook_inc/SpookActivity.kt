@@ -13,30 +13,12 @@ class SpookActivity : AppCompatActivity() {
     private lateinit var btnHouse2: HouseButton
     private lateinit var btnHouse1: HouseButton
 
-    private val house1Victory = false
-    private val house2Victory = false
-    private val house3Victory = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spook)
         btnHouse3 = findViewById(R.id.house_difficulty_3)
         btnHouse2 = findViewById(R.id.house_difficulty_2)
         btnHouse1 = findViewById(R.id.house_difficulty_1)
-
-
-        if(house1Victory)
-        {
-            btnHouse1.visibility = View.VISIBLE
-        }
-        if(house2Victory)
-        {
-            btnHouse2.visibility = View.VISIBLE
-        }
-        if(house3Victory)
-        {
-            btnHouse3.visibility = View.VISIBLE
-        }
 
         btnHouse3.setOnClickListener{
             startSpook(500)
