@@ -31,7 +31,6 @@ class TrainingActivity : AppCompatActivity() {
     private var currentGhost : Ghost? = null
 
     private var playerTeam: List<Ghost> = mutableListOf()
-
     var playerGhosts: List<Ghost> = mutableListOf(Ghost(1,"Charlie", 10,Ghost_Type.SCYTHE),Ghost(2,"Damien", 100, Ghost_Type.TOPHAT))
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -326,7 +325,9 @@ class TrainingActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
+        // Pause the service
         startService(Intent(this, BackgroundSoundService::class.java))
+
         // Get Context
         val context = applicationContext
         val directory = context.filesDir

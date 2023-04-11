@@ -30,6 +30,7 @@ class CatchGhostActivity : AppCompatActivity() {
     private var yDelta = 0
     private val COUNTER_KEY = "counter"
     private var counter = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catch_ghost)
@@ -45,7 +46,7 @@ class CatchGhostActivity : AppCompatActivity() {
         val scale = batteryStatus!!.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
         var batteryPct = level / scale.toFloat() * 100
 
-        //change the size of image from the battery  * batteryPct/100
+        //change the size of image from the battery * batteryPct/100
         val size = (800 * batteryPct/100).toInt()
         image.layoutParams.height = size
         image.layoutParams.width = size
