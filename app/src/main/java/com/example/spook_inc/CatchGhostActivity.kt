@@ -22,8 +22,8 @@ class CatchGhostActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catch_ghost)
-        image = findViewById(R.id.imageView)
-        mainLayout = findViewById(R.id.main)
+        //image = findViewById(R.id.imageView)
+        //mainLayout = findViewById(R.id.main)
         // Get battery Level
         val ifilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
         val batteryStatus = this.registerReceiver(null, ifilter)
