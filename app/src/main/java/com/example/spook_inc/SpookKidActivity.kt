@@ -93,15 +93,15 @@ class SpookKidActivity : AppCompatActivity() {
         when (kidStrength) {
             100 -> {
                 viewKid.setImageResource(R.drawable.karate_kid_photo)
-                textKid.text = "The Karate Kids $kidStrength"
+                textKid.text = "The Karate Kids"
             }
             300 -> {
                 viewKid.setImageResource(R.drawable.nerds)
-                textKid.text = "The nerds $kidStrength"
+                textKid.text = "The nerds"
             }
             500 -> {
                 viewKid.setImageResource(R.drawable.cool_kid)
-                textKid.text = "The Cool Kid $kidStrength"
+                textKid.text = "The Cool Kid"
             }
             else -> { // Note the block
                 print("ERROR")
@@ -121,6 +121,8 @@ class SpookKidActivity : AppCompatActivity() {
 
 // Start the animation
         animator.start()
+
+        // TODO : Annoncer la victoire ou la défaite
 
         if(totalStrength>kidStrength)
         {
