@@ -28,6 +28,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/nicepng_full_moon_png_89788" />
 
+        <android.opengl.GLSurfaceView
+            android:id="@+id/surfaceView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
 
     </RelativeLayout>
 

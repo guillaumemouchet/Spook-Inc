@@ -4,7 +4,16 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera.ar" />
+
+    <privapp-permissions>
+        <uses-permission android:name="android.permission.ACCESS_SURFACE_FLINGER" />
+    </privapp-permissions>
+    <uses-feature
+        android:name="android.hardware.camera.ar"
+        android:required="true" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -51,7 +60,9 @@
         </activity>
         <service android:enabled="true" android:name=".BackgroundSoundService" android:stopWithTask="true" />
 
-        <meta-data android:name="com.google.ar.core" android:value="required" />
+        <meta-data
+            android:name="com.google.ar.core"
+            android:value="required" />
     </application>
 
 </manifest>

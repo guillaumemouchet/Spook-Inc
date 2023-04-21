@@ -6,12 +6,10 @@ import android.content.IntentFilter
 import android.os.BatteryManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.google.ar.core.ArCoreApk
 
 class CatchGhostActivity : AppCompatActivity() {
     private lateinit var mainLayout: ViewGroup
@@ -21,6 +19,7 @@ class CatchGhostActivity : AppCompatActivity() {
     private var yDelta = 0
     private val COUNTER_KEY = "counter"
     private var counter = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catch_ghost)
@@ -79,6 +78,8 @@ class CatchGhostActivity : AppCompatActivity() {
         }
     }
 
+
+
     //Cycle de vie d'une application
 
     override fun onStart() {
@@ -108,11 +109,6 @@ class CatchGhostActivity : AppCompatActivity() {
         // "super" after (continues flow)
         super.onResume()
 
-        // ARCore requires camera permission to operate.
-        if (!CameraPermissionHelper.hasCameraPermission(this)) {
-            CameraPermissionHelper.requestCameraPermission(this)
-            return
-        }
     }
 
     override fun onPause() {
@@ -141,4 +137,5 @@ class CatchGhostActivity : AppCompatActivity() {
         // "super" after (continues flow)
         super.onDestroy()
     }
+
 }
