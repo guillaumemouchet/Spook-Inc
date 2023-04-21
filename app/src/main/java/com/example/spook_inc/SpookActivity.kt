@@ -3,7 +3,12 @@ package com.example.spook_inc
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import java.io.File
 
 class SpookActivity : AppCompatActivity() {
     private val COUNTER_KEY = "counter"
@@ -12,6 +17,7 @@ class SpookActivity : AppCompatActivity() {
     private lateinit var btnHouse3: HouseButton
     private lateinit var btnHouse2: HouseButton
     private lateinit var btnHouse1: HouseButton
+    private var storedGhosts: List<Ghost> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,24 +26,40 @@ class SpookActivity : AppCompatActivity() {
         btnHouse2 = findViewById(R.id.house_difficulty_2)
         btnHouse1 = findViewById(R.id.house_difficulty_1)
 
-        btnHouse3.setOnClickListener{
-            startSpook(500)
-        }
-        btnHouse2.setOnClickListener{
-            startSpook(300)
-        }
-        btnHouse1.setOnClickListener{
-            startSpook(100)
-        }
+        val context = applicationContext
+        val directory = context.filesDir
+
+        // Get player Team
+        val filename = "my_team.json"
+        val file = File(directory, filename)
+        val storedGhostString = file.inputStream().bufferedReader().use { it.readLines() }
+        Log.d("Json", storedGhostString.toString())
+        storedGhosts = Json.decodeFromString<List<Ghost>>(storedGhostString.toString())
+
+            btnHouse3.setOnClickListener {
+                startSpook(500)
+            }
+            btnHouse2.setOnClickListener {
+                startSpook(300)
+            }
+            btnHouse1.setOnClickListener {
+                startSpook(100)
+            }
+
 
     }
 
     private fun startSpook(kidStrength: Int)
     {
+        if(storedGhosts.size!=0) {
         val intent = Intent(this, SpookKidActivity::class.java)
         intent.putExtra("kidStrength", kidStrength)
 
         startActivity(intent)
+        }else
+        {
+            Toast.makeText(applicationContext,"You have no one in your team",Toast.LENGTH_SHORT).show()
+        }
     }
 
     //Cycle de vie dune application
