@@ -1,5 +1,6 @@
 package com.example.spook_inc
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.util.Log
 import android.widget.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import org.w3c.dom.Text
 import java.io.File
 
 class SpookKidActivity : AppCompatActivity() {
@@ -26,6 +28,9 @@ class SpookKidActivity : AppCompatActivity() {
         val g1Image : ImageView = findViewById(R.id.ghostImage1)
         val g2Image : ImageView = findViewById(R.id.ghostImage2)
         val g3Image : ImageView = findViewById(R.id.ghostImage3)
+
+        val spookMeterLabel : TextView = findViewById(R.id.spookometer_text)
+        val spookMeterBar : ProgressBar = findViewById(R.id.spookOmeterProgress)
 
         playerTeamImages = playerTeamImages.plus(g1Image)
         playerTeamImages = playerTeamImages.plus(g2Image)
@@ -89,6 +94,20 @@ class SpookKidActivity : AppCompatActivity() {
                 print("ERROR")
             }
         }
+
+        spookMeterLabel.text = buildString {
+            append("Spook O Meter ")
+            append(totalStrength)
+        }
+// Create ObjectAnimator to animate the ProgressBar's progress
+        val percentLeft = 100 - totalStrength*100/kidStrength
+        val animator = ObjectAnimator.ofInt(spookMeterBar, "progress", 100, if (percentLeft < 0 ) 0 else percentLeft)
+
+// Set duration of the animation (in milliseconds)
+        animator.duration = 5000
+
+// Start the animation
+        animator.start()
 
         if(totalStrength>kidStrength)
         {
