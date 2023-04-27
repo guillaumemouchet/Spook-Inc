@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun catchGhosts() {
         //val intent = Intent(this, CatchGhostActivity::class.java);
-        val intent = Intent(this, CatchGhostActivity::class.java);
+        val intent = Intent(this, Camera::class.java);
         startActivity(intent);
 
     }
