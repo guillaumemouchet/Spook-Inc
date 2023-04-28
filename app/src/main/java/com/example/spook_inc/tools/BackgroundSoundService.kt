@@ -1,4 +1,4 @@
-package com.example.spook_inc
+package com.example.spook_inc.tools
 
 import android.app.Service
 import android.content.Intent

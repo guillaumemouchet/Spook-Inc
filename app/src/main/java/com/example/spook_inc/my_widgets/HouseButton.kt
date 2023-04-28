@@ -1,10 +1,11 @@
-package com.example.spook_inc
+package com.example.spook_inc.my_widgets
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import com.example.spook_inc.R
 
 class HouseButton (context: Context, attrs: AttributeSet) : androidx.appcompat.widget.AppCompatImageButton(context, attrs) {
     private val paint = Paint()

@@ -14,35 +14,35 @@
         android:theme="@style/Theme.Spookinc"
         tools:targetApi="31">
         <activity
-            android:name=".SpookActivity"
+            android:name=".activitiy.SpookActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".TrainingActivity"
+            android:name=".activitiy.TrainingActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".CatchGhostActivity"
+            android:name=".activitiy.CatchGhostActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SpookKidActivity"
+            android:name=".activitiy.SpookKidActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activitiy.MainActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -53,7 +53,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:enabled="true" android:name=".BackgroundSoundService" android:stopWithTask="true" />
+        <service android:enabled="true" android:name=".tools.BackgroundSoundService" android:stopWithTask="true" />
 
     </application>
 
