@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SpookActivity">
+    tools:context=".activitiy.SpookActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.543"
         app:srcCompat="@drawable/night_city" />
 
-    <com.example.spook_inc.HouseButton
+    <com.example.spook_inc.my_widgets.HouseButton
         android:id="@+id/house_difficulty_1"
         android:layout_width="117dp"
         android:layout_height="115dp"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.821" />
 
-    <com.example.spook_inc.HouseButton
+    <com.example.spook_inc.my_widgets.HouseButton
         android:id="@+id/house_difficulty_2"
         android:layout_width="117dp"
         android:layout_height="115dp"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.482" />
 
-    <com.example.spook_inc.HouseButton
+    <com.example.spook_inc.my_widgets.HouseButton
         android:id="@+id/house_difficulty_3"
         android:layout_width="117dp"
         android:layout_height="115dp"

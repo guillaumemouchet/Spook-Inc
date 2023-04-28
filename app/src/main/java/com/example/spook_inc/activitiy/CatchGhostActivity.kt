@@ -1,7 +1,6 @@
-package com.example.spook_inc
+package com.example.spook_inc.activitiy
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
@@ -11,17 +10,20 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.example.spook_inc.tools.BackgroundSoundService
+import com.example.spook_inc.tools.Ghost
+import com.example.spook_inc.tools.GhostType
+import com.example.spook_inc.R
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileWriter
-import java.io.ObjectOutputStream
 import java.io.PrintWriter
 
 class CatchGhostActivity : AppCompatActivity() {
 
-    private var ghost = Ghost(1, "John", 123, Ghost_Type.TOPHAT)
-    private var ghost2 = Ghost(55, "Jane", 1000, Ghost_Type.MINITOPHAT)
+    private var ghost = Ghost(1, "John", 123, GhostType.TOPHAT)
+    private var ghost2 = Ghost(55, "Jane", 1000, GhostType.MINITOPHAT)
 
     private lateinit var mainLayout: ViewGroup
     private lateinit var image: ImageView

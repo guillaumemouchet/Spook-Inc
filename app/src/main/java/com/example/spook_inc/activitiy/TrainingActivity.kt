@@ -1,16 +1,19 @@
-package com.example.spook_inc
+package com.example.spook_inc.activitiy
 
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.spook_inc.tools.BackgroundSoundService
+import com.example.spook_inc.tools.Ghost
+import com.example.spook_inc.tools.GhostType
+import com.example.spook_inc.R
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -31,7 +34,10 @@ class TrainingActivity : AppCompatActivity() {
     private var currentGhost : Ghost? = null
 
     private var playerTeam: List<Ghost> = mutableListOf()
-    var playerGhosts: List<Ghost> = mutableListOf(Ghost(1,"Charlie", 10,Ghost_Type.SCYTHE),Ghost(2,"Damien", 100, Ghost_Type.TOPHAT))
+    var playerGhosts: List<Ghost> = mutableListOf(
+        Ghost(1,"Charlie", 10, GhostType.SCYTHE),
+        Ghost(2,"Damien", 100, GhostType.TOPHAT)
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_training)
@@ -120,16 +126,16 @@ class TrainingActivity : AppCompatActivity() {
         var ghostImg = R.drawable.ghost
 
         when (ghost.ghostType) {
-            Ghost_Type.TOPHAT -> {
+            GhostType.TOPHAT -> {
                 ghostImg = R.drawable.ghost_tophat_front
             }
-            Ghost_Type.MINITOPHAT -> {
+            GhostType.MINITOPHAT -> {
                 ghostImg = R.drawable.ghost_minitophat_front
             }
-            Ghost_Type.NORMAL -> {
+            GhostType.NORMAL -> {
                 ghostImg = R.drawable.ghost_normal_front
             }
-            Ghost_Type.SCYTHE -> {
+            GhostType.SCYTHE -> {
                 ghostImg = R.drawable.ghost_scythe_front
             }
             else -> { // Note the block
@@ -182,16 +188,16 @@ class TrainingActivity : AppCompatActivity() {
         var ghostImg = R.drawable.ghost_normal_front
 
         when (ghost.ghostType) {
-            Ghost_Type.TOPHAT -> {
+            GhostType.TOPHAT -> {
                 ghostImg = R.drawable.ghost_tophat_front
             }
-            Ghost_Type.MINITOPHAT -> {
+            GhostType.MINITOPHAT -> {
                 ghostImg = R.drawable.ghost_minitophat_front
             }
-            Ghost_Type.NORMAL -> {
+            GhostType.NORMAL -> {
                 ghostImg = R.drawable.ghost_normal_front
             }
-            Ghost_Type.SCYTHE -> {
+            GhostType.SCYTHE -> {
                 ghostImg = R.drawable.ghost_scythe_front
             }
             else -> { // Note the block

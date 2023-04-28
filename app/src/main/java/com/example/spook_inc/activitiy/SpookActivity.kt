@@ -1,11 +1,14 @@
-package com.example.spook_inc
+package com.example.spook_inc.activitiy
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
+import com.example.spook_inc.tools.BackgroundSoundService
+import com.example.spook_inc.tools.Ghost
+import com.example.spook_inc.my_widgets.HouseButton
+import com.example.spook_inc.R
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.File

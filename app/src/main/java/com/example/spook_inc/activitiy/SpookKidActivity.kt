@@ -1,14 +1,16 @@
-package com.example.spook_inc
+package com.example.spook_inc.activitiy
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.animation.Animation
-import android.view.animation.Animation.AnimationListener
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.spook_inc.tools.BackgroundSoundService
+import com.example.spook_inc.tools.Ghost
+import com.example.spook_inc.tools.GhostType
+import com.example.spook_inc.R
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.File
@@ -22,7 +24,7 @@ class SpookKidActivity : AppCompatActivity() {
     private lateinit var textKid: TextView
 
     //Change to local storage team or global Var
-    private var playerTeam: List<Ghost> = mutableListOf()//Ghost(1,"Charlie", 10,Ghost_Type.TOPHAT),Ghost(2,"Damien", 100,Ghost_Type.MINITOPHAT))
+    private var playerTeam: List<Ghost> = mutableListOf()//Ghost(1,"Charlie", 10,GhostType.TOPHAT),Ghost(2,"Damien", 100,GhostType.MINITOPHAT))
     private var playerTeamImages: List<ImageView> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,16 +71,16 @@ class SpookKidActivity : AppCompatActivity() {
 
             totalStrength += playerTeam[i].strength
             when (playerTeam[i].ghostType) {
-                Ghost_Type.TOPHAT -> {
+                GhostType.TOPHAT -> {
                     ghostImage = R.drawable.ghost_tophat_back
                 }
-                Ghost_Type.MINITOPHAT -> {
+                GhostType.MINITOPHAT -> {
                     ghostImage = R.drawable.ghost_minitophat_back
                 }
-                Ghost_Type.NORMAL -> {
+                GhostType.NORMAL -> {
                     ghostImage = R.drawable.ghost_normal_back
                 }
-                Ghost_Type.SCYTHE -> {
+                GhostType.SCYTHE -> {
                     ghostImage = R.drawable.ghost_scythe_back
                 }
                 else -> { // Note the block

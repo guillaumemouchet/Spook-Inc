@@ -1,9 +1,7 @@
-package com.example.spook_inc
+package com.example.spook_inc.activitiy
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.app.ActivityManager
-import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -12,6 +10,8 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.spook_inc.tools.BackgroundSoundService
+import com.example.spook_inc.R
 import java.io.File
 
 
