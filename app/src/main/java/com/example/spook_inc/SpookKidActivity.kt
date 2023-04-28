@@ -1,15 +1,18 @@
 package com.example.spook_inc
 
+import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.Animation
+import android.view.animation.Animation.AnimationListener
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.w3c.dom.Text
 import java.io.File
+
 
 class SpookKidActivity : AppCompatActivity() {
     private val COUNTER_KEY = "counter"
@@ -120,14 +123,33 @@ class SpookKidActivity : AppCompatActivity() {
         animator.duration = 5000
 
 // Start the animation
+        animator.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(p0: Animator?) {
+                //no use here
+            }
+
+            override fun onAnimationEnd(p0: Animator?) {
+                if(totalStrength>kidStrength)
+                {
+                    Toast.makeText(applicationContext,"Victory ! \nFinish him",Toast.LENGTH_SHORT).show()
+                }
+                else
+                {
+                    Toast.makeText(applicationContext,"You lose! \nTry to be spookier next time",Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onAnimationCancel(p0: Animator?) {
+                //no use here
+
+            }
+
+            override fun onAnimationRepeat(p0: Animator?) {
+                //no use here
+
+            }
+        })
         animator.start()
-
-        // TODO : Annoncer la victoire ou la défaite
-
-        if(totalStrength>kidStrength)
-        {
-            Toast.makeText(applicationContext,"Victory ! \nFinish him",Toast.LENGTH_SHORT).show()
-        }
     }
 
         //Cycle de vie d'une application
