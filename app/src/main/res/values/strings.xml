@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">Spook-inc</string>
+    <string name="yellow_circle_desc">Battery FlashLight Display</string>
+    <string name="catch_ghost_btn">Catch the ghost</string>
+    <string name="main_background_desc">Forest Background</string>
+    <string name="my_ghosts_btn">My ghosts</string>
+    <string name="spoooook_btn">Spoooook</string>
+    <string name="ghost_imgbtn_desc">Ghost emoji btn</string>
+    <string name="main_title">Spook Inc.</string>
+    <string name="flashlight_imgbtn">Flash light button</string>
+    <string name="black_filter_desc">Black foreground</string>
+    <string name="Night_City_Background_desc">Night City Background</string>
+    <string name="house_button_imgbtn">House Button</string>
+    <string name="battle_background_desc">Battle Background</string>
+    <string name="kid_image_desc">Kid adversary</string>
+    <string name="ghost_image_desc">Your ghost</string>
+    <string name="name_card_desc">Name card holder</string>
+    <string name="karate_kids">The Karate Kids</string>
+    <string name="spook_o_meter">Spook\'O\'meter</string>
+    <string name="ghost_team">Ghost Team</string>
+    <string name="spook_rating">Spook rating:</string>
+    <string name="zero">0</string>
+    <string name="ghost_box">Ghost Box</string>
+    <string name="remove">Remove</string>
+    <string name="add">Add</string>
+
+
 </resources>
