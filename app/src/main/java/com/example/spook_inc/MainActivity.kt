@@ -2,8 +2,6 @@ package com.example.spook_inc
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.app.ActivityManager
-import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -91,8 +89,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun catchGhosts() {
-        //val intent = Intent(this, CatchGhostActivity::class.java);
-        val intent = Intent(this, Camera::class.java);
+        val intent = Intent(this, CatchGhostActivity::class.java);
+        //val intent = Intent(this, CameraActivity::class.java);
         startActivity(intent);
 
     }
