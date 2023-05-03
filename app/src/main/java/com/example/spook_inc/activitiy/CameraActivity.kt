@@ -1,11 +1,12 @@
 package com.example.spook_inc.activitiy
 
+
 import android.content.pm.PackageManager
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -20,8 +21,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CameraActivity: AppCompatActivity() {
-
+class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
     private var imageCapture: ImageCapture? = null
     private lateinit var outputDirectory: File
@@ -29,18 +29,21 @@ class CameraActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCameraBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_camera)
 
-        outputDirectory = getOutPutDirecory()
+        outputDirectory = getOutPutDirectory()
+
 
         // if permissions' ok, then camera work
         if(allPermissionsGranted())
         {
+            Toast.makeText(this, "Launch camera", Toast.LENGTH_SHORT).show()
             startCamera()
         }
         else
         {
-            ActivityCompat.requestPermissions(this,Constants.REQUIRED_PERMISSIONS,Constants.REQUEST_CODE_PERMISSION)
+            Toast.makeText(this, "Permission Not OK", Toast.LENGTH_SHORT).show()
+            ActivityCompat.requestPermissions(this, Constants.REQUIRED_PERMISSIONS,Constants.REQUEST_CODE_PERMISSION)
         }
 
         binding.btnTakePhoto.setOnClickListener()
@@ -49,7 +52,7 @@ class CameraActivity: AppCompatActivity() {
         }
     }
 
-    private fun getOutPutDirecory(): File
+    private fun getOutPutDirectory(): File
     {
         val mediaDir = externalMediaDirs.firstOrNull()?.let { mFile ->
             File(mFile, resources.getString(R.string.app_name)).apply {
@@ -93,6 +96,7 @@ class CameraActivity: AppCompatActivity() {
 
     private fun startCamera()
     {
+        Toast.makeText(this, "dans start camera", Toast.LENGTH_SHORT).show()
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
@@ -129,8 +133,9 @@ class CameraActivity: AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == Constants.REQUEST_CODE_PERMISSION) {
             if (allPermissionsGranted())
+                Toast.makeText(this, "Permission OK", Toast.LENGTH_SHORT).show()
                 startCamera()
-            //code here
+
         } else {
             Toast.makeText(this, "Permission Not OK", Toast.LENGTH_SHORT).show()
 
@@ -138,11 +143,11 @@ class CameraActivity: AppCompatActivity() {
             finish()
         }
     }
-
     private fun allPermissionsGranted()=
         Constants.REQUIRED_PERMISSIONS.all {
             ContextCompat.checkSelfPermission(
                 baseContext, it
             ) == PackageManager.PERMISSION_GRANTED
         }
+
 }
