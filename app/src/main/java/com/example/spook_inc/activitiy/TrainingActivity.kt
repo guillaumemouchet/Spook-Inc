@@ -35,8 +35,7 @@ class TrainingActivity : AppCompatActivity() {
 
     private var playerTeam: List<Ghost> = mutableListOf()
     var playerGhosts: List<Ghost> = mutableListOf(
-        Ghost(1,"Charlie", 10, GhostType.SCYTHE),
-        Ghost(2,"Damien", 100, GhostType.TOPHAT)
+   // Ghost("Charlie", 10, GhostType.SCYTHE), //    Ghost("Damien", 100, GhostType.TOPHAT)
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,6 +2,7 @@ package com.example.spook_inc.activitiy
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -19,6 +20,17 @@ class MainActivity : AppCompatActivity() {
     private val activePlayers: Set<MediaPlayer> = HashSet()
     private val COUNTER_KEY = "counter"
     private var counter = 0
+    init {
+        instance = this
+    }
+
+    companion object {
+        private var instance: MainActivity? = null
+
+        fun applicationContext(): Context {
+            return instance!!.applicationContext
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
