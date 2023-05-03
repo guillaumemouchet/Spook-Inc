@@ -1,8 +1,10 @@
 package com.example.spook_inc.activitiy
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.BatteryManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -39,6 +41,17 @@ class CatchGhostActivity : AppCompatActivity() {
         image = findViewById(R.id.imageView)
         mainLayout = findViewById(R.id.main)
         val btnTest = findViewById<Button>(R.id.btn_test)
+
+        val imageView: ImageView = findViewById(R.id.imgViewBackground)
+        //Use saveUri, instantiate in another class
+        val sharedPref = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+        val uriString = sharedPref.getString("uri_key", null)
+        if (uriString != null) {
+            val saveUri = Uri.parse(uriString)
+            Toast.makeText(this, saveUri.toString(), Toast.LENGTH_SHORT).show()
+            imageView.scaleType = ImageView.ScaleType.FIT_XY
+            imageView.setImageURI(saveUri)
+        }
 
 
         // Get battery Level
