@@ -230,6 +230,10 @@ class TrainingActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java);
+        startActivity(intent);    }
+
     /*
      * Add Ghost in Team
      * The maximum is 3

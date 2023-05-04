@@ -9,6 +9,7 @@ import android.content.IntentFilter
 import android.graphics.Path
 import android.graphics.Rect
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.BatteryManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -168,10 +169,12 @@ class CatchGhostActivity : AppCompatActivity() {
                 captured=true
                 Toast.makeText(applicationContext,"Well done ! Ghost captured",Toast.LENGTH_SHORT).show()
 
+                imgGhost.visibility = View.INVISIBLE
                 val context = applicationContext
                 val directory = context.filesDir
                 val filename = "my_ghosts.json"
                 val file = File(directory, filename)
+
 
                 /* Get what's already in to know how to serialize */
                 val storedGhostString = file.inputStream().bufferedReader().use { it.readLines() }
@@ -186,6 +189,11 @@ class CatchGhostActivity : AppCompatActivity() {
                         it.write("$ghostJson")
                     }
                 }
+
+                Thread.sleep(1000)
+
+                val intent = Intent(this, TrainingActivity::class.java);
+                startActivity(intent);
 
             }
             true
