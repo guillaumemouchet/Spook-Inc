@@ -44,11 +44,11 @@ class CatchGhostActivity : AppCompatActivity() {
 
         val imageView: ImageView = findViewById(R.id.imgViewBackground)
         //Use saveUri, instantiate in another class
-        val sharedPref = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
-        val uriString = sharedPref.getString("uri_key", null)
+        var sharedPref = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+        var uriString = sharedPref.getString("uri_key", null)
+
         if (uriString != null) {
             val saveUri = Uri.parse(uriString)
-            Toast.makeText(this, saveUri.toString(), Toast.LENGTH_SHORT).show()
             imageView.scaleType = ImageView.ScaleType.FIT_XY
             imageView.setImageURI(saveUri)
         }
