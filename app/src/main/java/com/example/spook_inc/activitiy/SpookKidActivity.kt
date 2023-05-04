@@ -22,14 +22,15 @@ class SpookKidActivity : AppCompatActivity() {
 
     private lateinit var viewKid: ImageView
     private lateinit var textKid: TextView
-
+    private var totalStrength = 0
     //Change to local storage team or global Var
-    private var playerTeam: List<Ghost> = mutableListOf()//Ghost(1,"Charlie", 10,GhostType.TOPHAT),Ghost(2,"Damien", 100,GhostType.MINITOPHAT))
+    private var playerTeam: List<Ghost> = mutableListOf()// DEBUG GHOSTS : Ghost(1,"Charlie", 10,GhostType.TOPHAT),Ghost(2,"Damien", 100,GhostType.MINITOPHAT))
     private var playerTeamImages: List<ImageView> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spook_kid)
+        //Get values from layout
         val g1Image : ImageView = findViewById(R.id.ghostImage1)
         val g2Image : ImageView = findViewById(R.id.ghostImage2)
         val g3Image : ImageView = findViewById(R.id.ghostImage3)
@@ -61,40 +62,22 @@ class SpookKidActivity : AppCompatActivity() {
         playerTeam = playerTeam.plus(storedGhosts)
 
 
-        var totalStrength = 0
+
         /*
          * Get the ghosts in our teams and set the corresponding image to the playerTeamImages
-         * Get the total strength to see if the win against the kids
+         * Get the total strength to see if we win against the kids
          */
         var ghostImage = R.drawable.ghost_normal_back
         for (i in playerTeam.indices) {
-
             totalStrength += playerTeam[i].strength
-            when (playerTeam[i].ghostType) {
-                GhostType.TOPHAT -> {
-                    ghostImage = R.drawable.ghost_tophat_back
-                }
-                GhostType.MINITOPHAT -> {
-                    ghostImage = R.drawable.ghost_minitophat_back
-                }
-                GhostType.NORMAL -> {
-                    ghostImage = R.drawable.ghost_normal_back
-                }
-                GhostType.SCYTHE -> {
-                    ghostImage = R.drawable.ghost_scythe_back
-                }
-                else -> { // Note the block
-                    ghostImage = R.drawable.ghost_normal_back
-                }
-            }
-            playerTeamImages[i].setImageResource(ghostImage)
+            playerTeamImages[i].setImageResource(playerTeam[i].getImageBack())
         }
 
         /*
          * Get the kid Strength from the previous activity
          * It will decide what kids they will fight
          */
-        val kidStrength: Int = intent.getIntExtra("kidStrength", 0)
+        val kidStrength: Int = intent.getIntExtra("kidStrength", 100)
         when (kidStrength) {
             100 -> {
                 viewKid.setImageResource(R.drawable.karate_kid_photo)
@@ -117,14 +100,14 @@ class SpookKidActivity : AppCompatActivity() {
             append("Spook O Meter ")
             append(totalStrength)
         }
-// Create ObjectAnimator to animate the ProgressBar's progress
+        // Create ObjectAnimator to animate the ProgressBar's progress
         val percentLeft = 100 - totalStrength*100/kidStrength
         val animator = ObjectAnimator.ofInt(spookMeterBar, "progress", 100, if (percentLeft < 0 ) 0 else percentLeft)
 
-// Set duration of the animation (in milliseconds)
+        // Set duration of the animation (in milliseconds)
         animator.duration = 5000
 
-// Start the animation
+        // Start the animation
         animator.addListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(p0: Animator?) {
                 //no use here
@@ -154,7 +137,7 @@ class SpookKidActivity : AppCompatActivity() {
         animator.start()
     }
 
-        //Cycle de vie d'une application
+        //Life Cycle of an application
 
     override fun onStart() {
         //Start sound of BG

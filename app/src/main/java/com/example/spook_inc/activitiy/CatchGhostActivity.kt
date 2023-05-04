@@ -33,14 +33,12 @@ import java.io.PrintWriter
 
 class CatchGhostActivity : AppCompatActivity() {
 
-   // private var ghost = Ghost("John", 123, GhostType.TOPHAT)
-    //private var ghost2 = Ghost("Jane", 1000, GhostType.MINITOPHAT)
     private var ghost = Ghost.Companion.createRandomGhost()
     private lateinit var mainLayout: ViewGroup
     private lateinit var image: ImageView
     private lateinit var imgGhost: ImageView
 
-    private var capture_value = 0
+    private var captureValue = 0
     private var captured: Boolean = false
     // default position of image
     private var xDelta = 0
@@ -52,7 +50,7 @@ class CatchGhostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catch_ghost)
         image = findViewById(R.id.imageView)
-        imgGhost = findViewById<ImageView>(R.id.imageGhost)
+        imgGhost = findViewById(R.id.imageGhost)
         mainLayout = findViewById(R.id.main)
 
         val imageView: ImageView = findViewById(R.id.imgViewBackground)
@@ -60,12 +58,12 @@ class CatchGhostActivity : AppCompatActivity() {
         var sharedPref = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
         var uriString = sharedPref.getString("uri_key", null)
 
+        //Set the image in the background
         if (uriString != null) {
             val saveUri = Uri.parse(uriString)
             imageView.scaleType = ImageView.ScaleType.FIT_XY
             imageView.setImageURI(saveUri)
         }
-
 
         // Get battery Level
         val filter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
@@ -79,50 +77,38 @@ class CatchGhostActivity : AppCompatActivity() {
         image.layoutParams.height = size
         image.layoutParams.width = size
 
-        // returns True if the listener has
-        // consumed the event, otherwise False.
-        image.setOnTouchListener(onTouchListener())
+        //Change the image of the ghost
+        imgGhost.setImageResource(ghost.getImageFront())
 
-        var ghostImg = R.drawable.ghost
-
-        when (ghost.ghostType) {
-            GhostType.TOPHAT -> {
-                ghostImg = R.drawable.ghost_tophat_front
-            }
-            GhostType.MINITOPHAT -> {
-                ghostImg = R.drawable.ghost_minitophat_front
-            }
-            GhostType.NORMAL -> {
-                ghostImg = R.drawable.ghost_normal_front
-            }
-            GhostType.SCYTHE -> {
-                ghostImg = R.drawable.ghost_scythe_front
-            }
-            }
-
-        imgGhost.setImageResource(ghostImg)
+        //Define the path of the ghost
         val path = Path()
         val centerX = -50f // x-coordinate of the center of the ellipse
-        val centerY = -100f // y-coordinate of the center of the ellipse
+        val centerY = -75f // y-coordinate of the center of the ellipse
         val radiusX = 300f // horizontal radius of the ellipse
         val radiusY = 800f // vertical radius of the ellipse
         path.addOval(centerX - radiusX, centerY - radiusY, centerX + radiusX, centerY + radiusY, Path.Direction.CW)
 
+        //Animate it to make it move following the path
         val animator = ObjectAnimator.ofFloat(imgGhost, View.TRANSLATION_X, View.TRANSLATION_Y, path)
         animator.duration = 8000 // Set the duration of the animation to 4 seconds
         animator.repeatCount = ValueAnimator.INFINITE // Set the repeat count to infinite
         animator.interpolator = PathInterpolator(0.5f, 0f) // Apply a circular path interpolator
         animator.start()
 
+        // returns True if the listener has
+        // consumed the event, otherwise False.
+        image.setOnTouchListener(onTouchListener())
 
     }
 
 
     /*
      * Used to move the torch (Yellow circle) in the Activity
+     * Check if the ghost is getting captured
      */
     @SuppressLint("ClickableViewAccessibility")
     private fun onTouchListener(): View.OnTouchListener {
+        //Move the Yellow Circle
         return View.OnTouchListener { view, event ->
             // position information
             // about the event by the user
@@ -150,6 +136,8 @@ class CatchGhostActivity : AppCompatActivity() {
             }
             // reflect the changes on screen
             mainLayout.invalidate()
+
+            //Check the collisions of both the yellow circle and the ghost
             val rect1 = Rect()
             imgGhost.getHitRect(rect1)
 
@@ -158,13 +146,11 @@ class CatchGhostActivity : AppCompatActivity() {
 
             if (Rect.intersects(rect1, rect2) && !captured) {
                 // The two views are touching so add to the capture meter
-                capture_value += 1
-            } else {
-                // The two views are not touching
+                captureValue += 1
             }
 
-
-            if(capture_value>=ghost.strength && !captured)
+            //The capture time depends on the strength
+            if(captureValue>=ghost.strength && !captured)
             {
                 captured=true
                 Toast.makeText(applicationContext,"Well done ! Ghost captured",Toast.LENGTH_SHORT).show()
@@ -180,7 +166,7 @@ class CatchGhostActivity : AppCompatActivity() {
                 val storedGhostString = file.inputStream().bufferedReader().use { it.readLines() }
                 val storedGhosts = Json.decodeFromString<List<Ghost>>(storedGhostString.toString())
 
-
+                //save the ghost in the serialized files
                 val ghostJson = Json.encodeToString(ghost)
                 PrintWriter(FileWriter(file.path, true)).use {
                     if (storedGhosts.isNotEmpty()) {
@@ -190,8 +176,10 @@ class CatchGhostActivity : AppCompatActivity() {
                     }
                 }
 
+
                 Thread.sleep(1000)
 
+                //Redirect on the Training Activity
                 val intent = Intent(this, TrainingActivity::class.java);
                 startActivity(intent);
 
@@ -200,8 +188,7 @@ class CatchGhostActivity : AppCompatActivity() {
         }
     }
 
-    //Cycle de vie d'une application
-
+    //Life Cycle of the application
     override fun onStart() {
         // "super" after (continues flow)
 

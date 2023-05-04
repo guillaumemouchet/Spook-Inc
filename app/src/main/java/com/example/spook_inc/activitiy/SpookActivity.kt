@@ -25,14 +25,16 @@ class SpookActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spook)
+        //Get value from layout
         btnHouse3 = findViewById(R.id.house_difficulty_3)
         btnHouse2 = findViewById(R.id.house_difficulty_2)
         btnHouse1 = findViewById(R.id.house_difficulty_1)
 
+        // Get directory
         val context = applicationContext
         val directory = context.filesDir
 
-        // Get player Team
+        // Get player team from files
         val filename = "my_team.json"
         val file = File(directory, filename)
         val storedGhostString = file.inputStream().bufferedReader().use { it.readLines() }
@@ -54,10 +56,9 @@ class SpookActivity : AppCompatActivity() {
 
     private fun startSpook(kidStrength: Int)
     {
-        if(storedGhosts.size!=0) {
+        if(storedGhosts.isNotEmpty()) {
         val intent = Intent(this, SpookKidActivity::class.java)
         intent.putExtra("kidStrength", kidStrength)
-
         startActivity(intent)
         }else
         {
@@ -65,7 +66,7 @@ class SpookActivity : AppCompatActivity() {
         }
     }
 
-    //Cycle de vie dune application
+    //Life Cycle of the application
 
     override fun onStart() {
         //Start sound of BG

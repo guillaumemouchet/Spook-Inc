@@ -17,31 +17,19 @@ import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
-    private val activePlayers: Set<MediaPlayer> = HashSet()
     private val COUNTER_KEY = "counter"
     private var counter = 0
-    init {
-        instance = this
-    }
+    private var lightOff = true
 
-    companion object {
-        private var instance: MainActivity? = null
-
-        fun applicationContext(): Context {
-            return instance!!.applicationContext
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //Get from layout
         val btnGhost = findViewById<ImageButton>(R.id.imgBtnGhost)
-
         val flashLightOff = findViewById<ImageButton>(R.id.imgBtnCatchGhostsOff)
-
         val btnTraining = findViewById<Button>(R.id.btnTraining)
         val btnSpook = findViewById<Button>(R.id.btnSpook)
-
         var imgForeground = findViewById<ImageView>(R.id.imgForeground)
 
         /*
@@ -54,8 +42,6 @@ class MainActivity : AppCompatActivity() {
         ghostAnimator.repeatMode = ObjectAnimator.REVERSE
         ghostAnimator.start()
 
-        var lightOff = true
-
         /*
          * Creating local storage
          */
@@ -65,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         // Create Collection
         val filename = "my_ghosts.json"
         val ghostFile = File(directory, filename)
-        if(!ghostFile.exists()) {
+        if (!ghostFile.exists()) {
             ghostFile.createNewFile()
         }
         /* DEBUG
@@ -78,79 +64,80 @@ class MainActivity : AppCompatActivity() {
         // Create Team
         val filenameTeam = "my_team.json"
         val ghostFileTeam = File(directory, filenameTeam)
-        if(!ghostFileTeam.exists())
-        {
+        if (!ghostFileTeam.exists()) {
             ghostFileTeam.createNewFile()
+
         }
-/* DEBUG
-else
-{
-   ghostFileTeam.delete()
-   ghostFileTeam.createNewFile()
-}*/
+            /* DEBUG
+        else
+        {
+           ghostFileTeam.delete()
+           ghostFileTeam.createNewFile()
+        }*/
 
-/*
-* The Flashlight hides some elements when turned off
-* The player must click on it to illuminate the activity and see the buttons
-* A click sound is made on each button press
-*/
-flashLightOff.setOnClickListener() {
 
-   var lightclick = MediaPlayer.create(this, R.raw.flashlight);
-   lightclick.setVolume(1f, 1f)
-   lightclick.start();
+    /*
+    * The Flashlight hides some elements when turned off
+    * The player must click on it to illuminate the activity and see the buttons
+    * A click sound is made on each button press
+    */
+    flashLightOff.setOnClickListener() {
 
-   if (lightOff) {
+       var lightclick = MediaPlayer.create(this, R.raw.flashlight);
+       lightclick.setVolume(1f, 1f)
+       lightclick.start();
 
-       flashLightOff.setImageResource(R.drawable.flashlight_on);
-       btnGhost.isVisible = true;
-       btnTraining.isVisible = true;
-       btnSpook.isVisible = true;
-       imgForeground.alpha = 0.0f;
-       lightOff = false;
+       if (lightOff) {
 
-   } else {
+           flashLightOff.setImageResource(R.drawable.flashlight_on);
+           btnGhost.isVisible = true;
+           btnTraining.isVisible = true;
+           btnSpook.isVisible = true;
+           imgForeground.alpha = 0.0f;
+           lightOff = false;
 
-       flashLightOff.setImageResource(R.drawable.flashlight_off);
-       btnGhost.isVisible = false;
-       btnTraining.isVisible = false;
-       btnSpook.isVisible = false;
-       imgForeground.alpha = 0.8f;
-       lightOff = true;
-   }
+       } else {
+
+           flashLightOff.setImageResource(R.drawable.flashlight_off);
+           btnGhost.isVisible = false;
+           btnTraining.isVisible = false;
+           btnSpook.isVisible = false;
+           imgForeground.alpha = 0.8f;
+           lightOff = true;
+       }
 
 }
 
 /*
-* Add the Listener on the differents Buttons and put music on them
+* Add the Listener on the different Buttons and put music on them
 * The set Volume doesn't seems to change much
 */
 
 btnGhost.setOnClickListener() {
-   var ghostnoise = MediaPlayer.create(this, R.raw.ghost);
-   ghostnoise.setVolume(0.9f, 0.9f)
-   ghostnoise.start();
+   var ghostNoise = MediaPlayer.create(this, R.raw.ghost);
+    ghostNoise.setVolume(0.9f, 0.9f)
+    ghostNoise.start();
    catchGhosts();
 }
 
 btnTraining.setOnClickListener() {
-   var whistlenoise = MediaPlayer.create(this, R.raw.whistle);
-   whistlenoise.setVolume(0.05f, 0.05f)
-   whistlenoise.start();
+   var whistleNoise = MediaPlayer.create(this, R.raw.whistle);
+    whistleNoise.setVolume(0.05f, 0.05f)
+    whistleNoise.start();
    training();
 }
 
 btnSpook.setOnClickListener() {
-   var kidnoise = MediaPlayer.create(this, R.raw.cri2);
-   kidnoise.setVolume(0.08f, 0.08f)
-   kidnoise.start();
+   var kidNoise = MediaPlayer.create(this, R.raw.cri2);
+    kidNoise.setVolume(0.08f, 0.08f)
+    kidNoise.start();
    spook();
 }
 
 }
 
 /*
-* Open the differents Activities
+* Open the different Activities
 */
 
 private fun catchGhosts() {
@@ -169,7 +156,7 @@ startActivity(intent);
 }
 
 
-//Cycle de vie d'une application
+//Life Cycle of the application
 
 override fun onStart() {
 //Start sound of BG
