@@ -37,17 +37,16 @@ class CameraActivity : AppCompatActivity() {
         // if permissions' ok, then camera work
         if(allPermissionsGranted())
         {
-            Toast.makeText(this, "Launch camera", Toast.LENGTH_SHORT).show()
             startCamera()
         }
         else
         {
-            Toast.makeText(this, "Permission Not OK", Toast.LENGTH_SHORT).show()
             ActivityCompat.requestPermissions(this, Constants.REQUIRED_PERMISSIONS,Constants.REQUEST_CODE_PERMISSION)
         }
 
         binding.btnTakePhoto.setOnClickListener()
         {
+            Toast.makeText(this, "clique btn", Toast.LENGTH_SHORT).show()
             takePhoto()
         }
     }
@@ -64,6 +63,7 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
+        Toast.makeText(this, "Clique", Toast.LENGTH_SHORT).show()
         val photoFile = File(
             outputDirectory,
             SimpleDateFormat(
@@ -96,7 +96,7 @@ class CameraActivity : AppCompatActivity() {
 
     private fun startCamera()
     {
-        Toast.makeText(this, "dans start camera", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "dans start camera", Toast.LENGTH_SHORT).show()
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
@@ -112,11 +112,10 @@ class CameraActivity : AppCompatActivity() {
                 }
             imageCapture = ImageCapture.Builder().build()
 
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
 
             try{
                 cameraProvider.unbindAll()
-
                 cameraProvider.bindToLifecycle(this,cameraSelector,preview,imageCapture)
             }
             catch (e: Exception) {
