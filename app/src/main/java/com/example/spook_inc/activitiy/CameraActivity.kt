@@ -22,11 +22,13 @@ import com.example.spook_inc.tools.Constants
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.concurrent.thread
 
 class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
     private var imageCapture: ImageCapture? = null
     private lateinit var outputDirectory: File
+    private var value = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +52,16 @@ class CameraActivity : AppCompatActivity() {
         {
             //Toast.makeText(this, "clique btn", Toast.LENGTH_SHORT).show()
             takePhoto()
+
+            if(value)
+            {
+                binding.btnTakePhoto.setText("Validate photo")
+            }else {
+                Toast.makeText(this@CameraActivity, "$value", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this, CatchGhostActivity::class.java);
+                startActivity(intent);
+            }
         }
     }
 
@@ -75,7 +87,6 @@ class CameraActivity : AppCompatActivity() {
         )
 
         val outputOption = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-
         (this.imageCapture ?: null)?.takePicture(
             outputOption, ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
@@ -87,7 +98,7 @@ class CameraActivity : AppCompatActivity() {
                     sharedPref.edit().putString("uri_key", saveUri.toString()).apply()
 
                     val msg = "Photo Saved"
-                    //Toast.makeText(this@CameraActivity, "$msg $saveUri", Toast.LENGTH_SHORT).show()
+                    value = false
                 }
 
                 override fun onError(exception: ImageCaptureException) {
@@ -96,8 +107,8 @@ class CameraActivity : AppCompatActivity() {
 
             }
         )
-        val intent = Intent(this, CatchGhostActivity::class.java);
-        startActivity(intent);
+
+
     }
 
     private fun startCamera()
