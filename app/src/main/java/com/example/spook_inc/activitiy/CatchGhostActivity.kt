@@ -163,7 +163,6 @@ class CatchGhostActivity : AppCompatActivity() {
                 /* Get what's already in to know how to serialize */
                 val storedGhostString = file.inputStream().bufferedReader().use { it.readLines() }
                 val storedGhosts = Json.decodeFromString<List<Ghost>>(storedGhostString.toString())
-                Log.d("already in", storedGhosts.toString())
 
 
                 val ghostJson = Json.encodeToString(ghost)
