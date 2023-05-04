@@ -35,7 +35,7 @@ class TrainingActivity : AppCompatActivity() {
 
     private var playerTeam: List<Ghost> = mutableListOf()
     var playerGhosts: List<Ghost> = mutableListOf(
-   // Ghost("Charlie", 10, GhostType.SCYTHE), //    Ghost("Damien", 100, GhostType.TOPHAT)
+   //DEBUG GHOSTS : // Ghost("Charlie", 10, GhostType.SCYTHE), //    Ghost("Damien", 100, GhostType.TOPHAT)
     )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,13 +93,13 @@ class TrainingActivity : AppCompatActivity() {
     private fun displayAll()
     {
         //Display everything
-        for (ghost in playerGhosts!!)
+        for (ghost in playerGhosts)
         {
             displayGhostPlayer(ghost, this)
         }
         totalSpook = 0
 
-        for (ghost in playerTeam!!)
+        for (ghost in playerTeam)
         {
             displayGhostTeam(ghost, this)
             totalSpook +=ghost.strength
@@ -120,28 +120,9 @@ class TrainingActivity : AppCompatActivity() {
         layoutVertical.orientation = LinearLayout.VERTICAL
         layoutHorizontal.orientation = LinearLayout.HORIZONTAL
 
-        // Choose the Image of the Ghost, it depends on his GhostType
         val imgBtn = ImageButton(context)
-        var ghostImg = R.drawable.ghost
 
-        when (ghost.ghostType) {
-            GhostType.TOPHAT -> {
-                ghostImg = R.drawable.ghost_tophat_front
-            }
-            GhostType.MINITOPHAT -> {
-                ghostImg = R.drawable.ghost_minitophat_front
-            }
-            GhostType.NORMAL -> {
-                ghostImg = R.drawable.ghost_normal_front
-            }
-            GhostType.SCYTHE -> {
-                ghostImg = R.drawable.ghost_scythe_front
-            }
-            else -> { // Note the block
-                ghostImg = R.drawable.ghost_normal_front
-            }
-        }
-        imgBtn.setImageResource(ghostImg)
+        imgBtn.setImageResource(ghost.getImageFront())
 
         //When you click on the image you see an add button to put it in your team
         imgBtn?.setOnClickListener(){
@@ -151,9 +132,9 @@ class TrainingActivity : AppCompatActivity() {
             currentGhost = ghost
 
             //Sound of Ghost when you click on it
-            var ghostnoise = MediaPlayer.create(context, R.raw.ghost)
-            ghostnoise.setVolume(1f, 1f)
-            ghostnoise.start()
+            var ghostNoise = MediaPlayer.create(context, R.raw.ghost)
+            ghostNoise.setVolume(1f, 1f)
+            ghostNoise.start()
         }
 
 
@@ -173,6 +154,7 @@ class TrainingActivity : AppCompatActivity() {
 
         ghostLayout.addView(layoutHorizontal)
     }
+
     /*
      * Display a Ghost in the HorizontalScrollView of the team
      */
@@ -184,29 +166,10 @@ class TrainingActivity : AppCompatActivity() {
 
         // Choose the Image of the Ghost, it depends on his GhostType
         var imgBtn = ImageButton(context)
-        var ghostImg = R.drawable.ghost_normal_front
-
-        when (ghost.ghostType) {
-            GhostType.TOPHAT -> {
-                ghostImg = R.drawable.ghost_tophat_front
-            }
-            GhostType.MINITOPHAT -> {
-                ghostImg = R.drawable.ghost_minitophat_front
-            }
-            GhostType.NORMAL -> {
-                ghostImg = R.drawable.ghost_normal_front
-            }
-            GhostType.SCYTHE -> {
-                ghostImg = R.drawable.ghost_scythe_front
-            }
-            else -> { // Note the block
-                ghostImg = R.drawable.ghost_normal_front
-            }
-        }
 
         //Rescale the image so it fits in the HorizontalScrollView
         //ghostImg is an Int so we need to convert it to an (Bitmap)Image before rescaling it
-        val b = BitmapFactory.decodeResource(context.resources, ghostImg);
+        val b = BitmapFactory.decodeResource(context.resources, ghost.getImageFront());
         val sizeX = (b.width * 0.90).roundToInt()
         val sizeY = (b.width * 0.90).roundToInt()
         val bitmapResized = Bitmap.createScaledBitmap(b, sizeX, sizeY, false)
@@ -230,9 +193,7 @@ class TrainingActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {
-        val intent = Intent(this, MainActivity::class.java);
-        startActivity(intent);    }
+
 
     /*
      * Add Ghost in Team
@@ -304,7 +265,12 @@ class TrainingActivity : AppCompatActivity() {
 
     }
 
-    //Cycle de vie d'une application
+    //Life Cycle of the application
+
+    //We don't want to go back on the capture so we go on the mainActivity
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)    }
     override fun onStart() {
         //Start sound of BG
         startService(Intent(this, BackgroundSoundService::class.java))

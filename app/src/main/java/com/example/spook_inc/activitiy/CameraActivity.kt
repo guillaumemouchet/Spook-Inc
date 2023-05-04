@@ -1,6 +1,5 @@
 package com.example.spook_inc.activitiy
 
-
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -22,13 +21,12 @@ import com.example.spook_inc.tools.Constants
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.concurrent.thread
 
 class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
     private var imageCapture: ImageCapture? = null
     private lateinit var outputDirectory: File
-    private var value = true
+    private var validateImage = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +35,7 @@ class CameraActivity : AppCompatActivity() {
 
         outputDirectory = getOutPutDirectory()
 
-
-        // if permissions' ok, then camera work
+        // if permissions' ok, then start the camera
         if(allPermissionsGranted())
         {
             startCamera()
@@ -48,19 +45,20 @@ class CameraActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, Constants.REQUIRED_PERMISSIONS,Constants.REQUEST_CODE_PERMISSION)
         }
 
+        //The player must take the picture then validate
         binding.btnTakePhoto.setOnClickListener()
         {
-            //Toast.makeText(this, "clique btn", Toast.LENGTH_SHORT).show()
             takePhoto()
 
-            if(value)
+            if(validateImage)
             {
-                binding.btnTakePhoto.setText("Validate photo")
-            }else {
-                Toast.makeText(this@CameraActivity, "$value", Toast.LENGTH_SHORT).show()
-
+                binding.btnTakePhoto.setText("Take photo")
                 val intent = Intent(this, CatchGhostActivity::class.java);
                 startActivity(intent);
+            }else {
+                binding.btnTakePhoto.setText("Validate photo")
+                validateImage = true
+
             }
         }
     }
@@ -77,7 +75,6 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
-        //Toast.makeText(this, "Clique", Toast.LENGTH_SHORT).show()
         val photoFile = File(
             outputDirectory,
             SimpleDateFormat(
@@ -86,6 +83,7 @@ class CameraActivity : AppCompatActivity() {
             ).format(System.currentTimeMillis()) + ".jpg"
         )
 
+        //Save the picture with its URI
         val outputOption = ImageCapture.OutputFileOptions.Builder(photoFile).build()
         (this.imageCapture ?: null)?.takePicture(
             outputOption, ContextCompat.getMainExecutor(this),
@@ -93,12 +91,10 @@ class CameraActivity : AppCompatActivity() {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
 
                     val saveUri = Uri.fromFile(photoFile)
+
                     //Use saveUri in another class
                     val sharedPref = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
                     sharedPref.edit().putString("uri_key", saveUri.toString()).apply()
-
-                    val msg = "Photo Saved"
-                    value = false
                 }
 
                 override fun onError(exception: ImageCaptureException) {
@@ -113,7 +109,6 @@ class CameraActivity : AppCompatActivity() {
 
     private fun startCamera()
     {
-        //Toast.makeText(this, "dans start camera", Toast.LENGTH_SHORT).show()
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
