@@ -1,6 +1,8 @@
 package com.example.spook_inc.activitiy
 
 
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -29,7 +31,7 @@ class CameraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCameraBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_camera)
+        setContentView(binding.root)
 
         outputDirectory = getOutPutDirectory()
 
@@ -46,7 +48,7 @@ class CameraActivity : AppCompatActivity() {
 
         binding.btnTakePhoto.setOnClickListener()
         {
-            Toast.makeText(this, "clique btn", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "clique btn", Toast.LENGTH_SHORT).show()
             takePhoto()
         }
     }
@@ -63,7 +65,7 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
-        Toast.makeText(this, "Clique", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Clique", Toast.LENGTH_SHORT).show()
         val photoFile = File(
             outputDirectory,
             SimpleDateFormat(
@@ -80,10 +82,12 @@ class CameraActivity : AppCompatActivity() {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
 
                     val saveUri = Uri.fromFile(photoFile)
+                    //Use saveUri in another class
+                    val sharedPref = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+                    sharedPref.edit().putString("uri_key", saveUri.toString()).apply()
+
                     val msg = "Photo Saved"
-
-                    Toast.makeText(this@CameraActivity, "$msg $saveUri", Toast.LENGTH_SHORT).show()
-
+                    //Toast.makeText(this@CameraActivity, "$msg $saveUri", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onError(exception: ImageCaptureException) {
@@ -92,6 +96,8 @@ class CameraActivity : AppCompatActivity() {
 
             }
         )
+        val intent = Intent(this, CatchGhostActivity::class.java);
+        startActivity(intent);
     }
 
     private fun startCamera()
@@ -112,7 +118,7 @@ class CameraActivity : AppCompatActivity() {
                 }
             imageCapture = ImageCapture.Builder().build()
 
-            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
             try{
                 cameraProvider.unbindAll()
@@ -132,7 +138,7 @@ class CameraActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == Constants.REQUEST_CODE_PERMISSION) {
             if (allPermissionsGranted())
-                Toast.makeText(this, "Permission OK", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, "Permission OK", Toast.LENGTH_SHORT).show()
                 startCamera()
 
         } else {
